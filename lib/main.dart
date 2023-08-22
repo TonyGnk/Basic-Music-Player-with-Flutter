@@ -1,50 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
+import 'Head.dart';
+import 'content.dart';
 
 void main() {
-  runApp(const MyApp());
+  //appbar icons to dark
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent, // status bar color
+    statusBarIconBrightness: Brightness.dark, // status bar icons' color
+  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SVG Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('SVG Example'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            //
-            SvgPicture.asset(
-              'assets/fab_icon.svg', // Το μονοπάτι προς το SVG αρχείο
-              width: 100,
-              height: 100,
+      theme: ThemeData(useMaterial3: true),
+      home: Scaffold(
+        backgroundColor: Color.fromARGB(255, 246, 246, 246),
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0, 38, 0, 0),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Head(),
+                  SizedBox(height: 20),
+                  Expanded(child: Content()),
+                ],
+              ),
             ),
-            const SizedBox(height: 20),
-            const Text(
-              'SVG Icon Example',
-              style: TextStyle(fontSize: 20),
-            ),
-          ],
+          ),
         ),
       ),
     );
