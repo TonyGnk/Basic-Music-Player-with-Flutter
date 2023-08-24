@@ -60,10 +60,10 @@ class _NewState extends State<idea> {
       if ((Cup <= ContainerHeightMax && Cdn <= ContainerHeightMax) &&
           (Cup >= 0 && Cdn >= 0)) {
         if (delta < 0) {
-          // ContainerHeight1 = 0;
-          // ContainerHeight2 = ContainerHeightMax;
-          ContainerHeight1 = ContainerHeight1 + delta;
-          ContainerHeight2 = ContainerHeight2 - delta;
+          ContainerHeight1 = 0;
+          ContainerHeight2 = ContainerHeightMax;
+          // ContainerHeight1 = ContainerHeight1 + delta;
+          // ContainerHeight2 = ContainerHeight2 - delta;
           if (Cdn >= 2 / 10 * ContainerHeightMax) {
             ContainerHeight1 = 0;
             ContainerHeight2 = ContainerHeightMax;

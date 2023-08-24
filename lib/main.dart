@@ -4,13 +4,16 @@ import 'Head.dart';
 import 'content.dart';
 import 'fab.dart';
 import 'new.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   //appbar icons to dark
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // status bar color
     statusBarIconBrightness: Brightness.dark, // status bar icons' color
   ));
+
   runApp(MyApp());
 }
 
