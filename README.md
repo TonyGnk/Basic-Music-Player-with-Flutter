@@ -23,8 +23,8 @@ Music SwitchApp is a part of Project SwitchOS, a collection of Flutter apps that
 
 Follow these steps to get started with the Project SwitchOS:
 
-1. Clone the repository: `git clone https://github.com/TonyGnk/musicgnk.git`
-2. Navigate to the app directory: `cd musicgnk`
+1. Clone the repository: `git clone https://github.com/TonyGnk/MusicSwitchApp.git`
+2. Navigate to the app directory: `cd MusicSwitchApp`
 3. Install dependencies: `flutter pub get`
 4. Run the app: `flutter run`
 
