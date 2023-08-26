@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'actions.dart';
 
 class idea extends StatefulWidget {
@@ -30,8 +31,13 @@ class _NewState extends State<idea> {
     swicherHeight = 2 / 5 * widget.initialHeight;
     ContainerHeightMax = 3 / 5 * widget.initialHeight;
     ContainerHeight1 = ContainerHeightMax;
-    //print initialContainerHeightMax
-    print(ContainerHeightMax);
+    requestPremissions();
+  }
+
+  requestPremissions() {
+    Permission.storage.request();
+    // Permission.manageExternalStorage.request();
+    // Permission.mediaLibrary.request();
   }
 
   Color transitionColor(Color startColor, Color endColor, double percentage) {
@@ -54,34 +60,36 @@ class _NewState extends State<idea> {
     setState(() {
       //The up drag is negative and the down drag is positive
 
-      Cup = ContainerHeight1 + delta;
-      Cdn = ContainerHeight2 - delta;
+      if (delta > 10 || delta < -10) {
+        Cup = ContainerHeight1 + delta;
+        Cdn = ContainerHeight2 - delta;
 
-      if ((Cup <= ContainerHeightMax && Cdn <= ContainerHeightMax) &&
-          (Cup >= 0 && Cdn >= 0)) {
-        if (delta < 0) {
-          ContainerHeight1 = 0;
-          ContainerHeight2 = ContainerHeightMax;
-          // ContainerHeight1 = ContainerHeight1 + delta;
-          // ContainerHeight2 = ContainerHeight2 - delta;
-          if (Cdn >= 2 / 10 * ContainerHeightMax) {
+        if ((Cup <= ContainerHeightMax && Cdn <= ContainerHeightMax) &&
+            (Cup >= 0 && Cdn >= 0)) {
+          if (delta < 0) {
             ContainerHeight1 = 0;
             ContainerHeight2 = ContainerHeightMax;
+            // ContainerHeight1 = ContainerHeight1 + delta;
+            // ContainerHeight2 = ContainerHeight2 - delta;
+            if (Cdn >= 2 / 10 * ContainerHeightMax) {
+              ContainerHeight1 = 0;
+              ContainerHeight2 = ContainerHeightMax;
+            }
           }
-        }
-        if (delta > 0) {
-          ContainerHeight1 = ContainerHeightMax;
-          ContainerHeight2 = 0;
-          // ContainerHeight1 = ContainerHeight1 + delta;
-          // ContainerHeight2 = ContainerHeight2 - delta;
-          if (Cup >= 8 / 10 * ContainerHeightMax) {
+          if (delta > 0) {
             ContainerHeight1 = ContainerHeightMax;
             ContainerHeight2 = 0;
+            // ContainerHeight1 = ContainerHeight1 + delta;
+            // ContainerHeight2 = ContainerHeight2 - delta;
+            if (Cup >= 8 / 10 * ContainerHeightMax) {
+              ContainerHeight1 = ContainerHeightMax;
+              ContainerHeight2 = 0;
+            }
           }
+          //Αποθήκευσε πόσο μέρους του συνόλου ContainerHeightmax καταλαμβάνει το ContainerHeight1 σε ποσοστό
+          percent = ContainerHeight2 / ContainerHeightMax;
+          colorz = transitionColor(colorgray, colorblue, percent);
         }
-        //Αποθήκευσε πόσο μέρους του συνόλου ContainerHeightmax καταλαμβάνει το ContainerHeight1 σε ποσοστό
-        percent = ContainerHeight2 / ContainerHeightMax;
-        colorz = transitionColor(colorgray, colorblue, percent);
       }
     });
   }
