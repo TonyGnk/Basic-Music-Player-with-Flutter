@@ -1,68 +1,55 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'customIconButton.dart';
+import 'dart:io';
 
-class Head extends StatelessWidget {
+import 'package:audioplayers/audioplayers.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+
+class tracksTab extends StatelessWidget {
+  final player = AudioPlayer();
+
+  //Create function A setting this await player.setSource(AssetSource('assets/Online.m4a'));
+  void playfun() async {
+    // Create a variable file, with file picker
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      PlatformFile file = result.files.first;
+
+      print(file.name);
+      print(file.bytes);
+      print(file.size);
+      print(file.extension);
+      print(file.path);
+
+      // Get the actual file path from the PlatformFile object
+      String filePath = file.path!;
+
+      // Copy the file from the path to the assets\music folder
+      await player.setSource(DeviceFileSource(filePath));
+
+      print("Here");
+      await player.resume();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Color.fromARGB(255, 255, 255, 255),
-      ),
-      child: Container(
-        width: double.infinity,
-        height: 50,
-        padding: EdgeInsets.symmetric(horizontal: 15),
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 246, 246, 246),
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30),
-            bottomRight: Radius.circular(30),
-            topLeft: Radius.circular(0),
-            topRight: Radius.circular(0),
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      alignment: Alignment.center,
+      child: ListView(
+        scrollDirection: Axis.vertical,
+        children: [
+          //Create a button, when pressed call function A
+          ElevatedButton(
+            onPressed: () {
+              //Call function A
+              playfun();
+            },
+            child: Text('Select Song'),
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            /*
-		* Box of text
-		*/
-            Container(
-              color: Colors.transparent, // Color of the box
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Μουσική",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: const Color.fromARGB(255, 76, 76, 76),
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            /*
-		* Box of Icons
-		*/
-            Row(children: [
-              CustomIconButton(
-                onPressed: () {
-                  // Add your onPressed logic here
-                },
-                icon: SvgPicture.asset('assets/search.svg'),
-              ),
-              /*
-		* Box of Settings Icon
-		*/
-              CustomIconButton(
-                onPressed: () {
-                  // Add your onPressed logic here
-                },
-                icon: SvgPicture.asset('assets/settings.svg'),
-              ),
-            ]),
-          ],
-        ),
+        ],
       ),
     );
   }

@@ -1,13 +1,17 @@
 import 'dart:math';
 
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'actions.dart';
+import 'customIconButton.dart';
+import 'head.dart';
 
 class idea extends StatefulWidget {
   final double initialHeight;
+  final double initialWidth;
 
-  idea({required this.initialHeight});
+  idea({required this.initialHeight, required this.initialWidth});
 
   @override
   _NewState createState() => _NewState();
@@ -20,9 +24,16 @@ class _NewState extends State<idea> {
   double ContainerHeight2 = 0;
   double ContainerHeightMax = 0;
   double swicherHeight = 0;
+
+  double tab1 = 0;
+  double tab2 = 0;
+  double tab3 = 0;
+  double MaxTab = 0;
+
+  int durationMS = 2200;
   // store the color Color.fromARGB(255, 21, 71, 107),
   Color colorgray = Color.fromARGB(255, 234, 234, 234);
-  Color colorblue = Color.fromARGB(255, 21, 71, 107);
+  Color colorblue = Color.fromARGB(255, 26, 34, 62);
   Color colorz = Color.fromARGB(255, 234, 234, 234);
 
   @override
@@ -31,6 +42,10 @@ class _NewState extends State<idea> {
     swicherHeight = 2 / 5 * widget.initialHeight;
     ContainerHeightMax = 3 / 5 * widget.initialHeight;
     ContainerHeight1 = ContainerHeightMax;
+
+    MaxTab = widget.initialWidth;
+    tab1 = widget.initialWidth;
+
     requestPremissions();
   }
 
@@ -41,9 +56,12 @@ class _NewState extends State<idea> {
   }
 
   Color transitionColor(Color startColor, Color endColor, double percentage) {
+    int random = Random().nextInt(255);
+    int random2 = Random().nextInt(255);
+
     int rd = endColor.red - startColor.red;
-    int gd = endColor.green - startColor.green;
-    int bd = endColor.blue - startColor.blue;
+    int gd = random2 - startColor.green;
+    int bd = random - startColor.blue;
 
     int r = (startColor.red + (rd * percentage)).toInt();
     int g = (startColor.green + (gd * percentage)).toInt();
@@ -94,56 +112,193 @@ class _NewState extends State<idea> {
     });
   }
 
+  void _updateTabs(double delta) {
+    double Cdn = 0;
+    double Cup = 0;
+    double percent = 0;
+
+    setState(() {
+      //To the left drag is negative and to the right drag is positive
+      //print hello
+      if (delta < 0) {
+        print("Hello");
+        tab1 = 0;
+        tab2 = MaxTab;
+      }
+      if (delta > 0) {
+        print("2");
+        tab1 = MaxTab;
+        tab2 = 0;
+      }
+      // if (delta > 10 || delta < -10) {
+      //   Cup = ContainerHeight1 + delta;
+      //   Cdn = ContainerHeight2 - delta;
+
+      //   if ((Cup <= ContainerHeightMax && Cdn <= ContainerHeightMax) &&
+      //       (Cup >= 0 && Cdn >= 0)) {
+      //     if (delta < 0) {
+      //       ContainerHeight1 = 0;
+      //       ContainerHeight2 = ContainerHeightMax;
+      //       // ContainerHeight1 = ContainerHeight1 + delta;
+      //       // ContainerHeight2 = ContainerHeight2 - delta;
+      //       if (Cdn >= 2 / 10 * ContainerHeightMax) {
+      //         ContainerHeight1 = 0;
+      //         ContainerHeight2 = ContainerHeightMax;
+      //       }
+      //     }
+      //     if (delta > 0) {
+      //       ContainerHeight1 = ContainerHeightMax;
+      //       ContainerHeight2 = 0;
+      //       // ContainerHeight1 = ContainerHeight1 + delta;
+      //       // ContainerHeight2 = ContainerHeight2 - delta;
+      //       if (Cup >= 8 / 10 * ContainerHeightMax) {
+      //         ContainerHeight1 = ContainerHeightMax;
+      //         ContainerHeight2 = 0;
+      //       }
+      //     }
+      //     //Αποθήκευσε πόσο μέρους του συνόλου ContainerHeightmax καταλαμβάνει το ContainerHeight1 σε ποσοστό
+      //     percent = ContainerHeight2 / ContainerHeightMax;
+      //     colorz = transitionColor(colorgray, colorblue, percent);
+      //   }
+      // }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AnimatedContainer(
-          duration: Duration(milliseconds: 300), // Διάρκεια της animation
-          curve: Curves.easeInOut,
-          width: double.infinity,
-          height: ContainerHeight1,
-          color: colorz,
-        ),
+        _buildUp(),
         GestureDetector(
           onVerticalDragUpdate: (DragUpdateDetails details) {
             _updateActionsVisibility(details.primaryDelta!, true);
           },
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 300), // Διάρκεια της animation
-            curve: Curves.easeInOut,
-            decoration: BoxDecoration(
-              color: colorz,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(0),
-                bottomRight: Radius.circular(0),
-                topLeft: Radius.circular(0),
-                topRight: Radius.circular(0),
-              ),
-            ),
-            width: double.infinity,
-            height: swicherHeight,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 255, 255, 255),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
+          child: _buildSwitcher(),
+        ),
+        _buildDown(),
+      ],
+    );
+  }
+
+  Widget _buildUp() {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: durationMS),
+      curve: Curves.easeInOut,
+      width: double.infinity,
+      height: ContainerHeight1,
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
+      decoration: BoxDecoration(
+        color: colorz,
+        border: Border.all(
+          color: colorz,
+          width: 0.1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                "Switch Music",
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 76, 76, 76),
+                  fontSize: 20,
                 ),
               ),
-            ),
+              Expanded(
+                child: Container(
+                  width: 150,
+                  height: 40,
+                  alignment: Alignment.centerRight,
+                  child: CustomIconButton(
+                    onPressed: () {
+                      AppSettings.openAppSettings();
+                    },
+                    icon: SvgPicture.asset('assets/info.svg'),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSwitcher() {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: durationMS), // Διάρκεια της animation
+      curve: Curves.easeInOut,
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      decoration: BoxDecoration(
+        color: colorz,
+        borderRadius: BorderRadius.circular(0),
+        //Make transparent the color of the border
+        border: Border.all(
+          color: colorz,
+          width: 0,
+        ),
+      ),
+      width: double.infinity,
+      height: swicherHeight,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 255, 255, 255),
+          borderRadius: BorderRadius.circular(30),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDown() {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: durationMS), // Διάρκεια της animation
+      curve: Curves.easeInOut,
+      width: double.infinity,
+      height: ContainerHeight2,
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(0),
+        color: colorz,
+        border: Border.all(
+          color: colorz,
+          width: 0,
+        ),
+      ),
+      //Create a child scrollable horizontal item
+      child: GestureDetector(
+        onHorizontalDragUpdate: (DragUpdateDetails details) {
+          _updateTabs(details.primaryDelta!);
+        },
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: durationMS),
+          curve: Curves.easeInOut,
+          color: Colors.transparent,
+          child: Row(
+            children: [
+              AnimatedContainer(
+                duration: Duration(milliseconds: durationMS),
+                curve: Curves.easeInOut,
+                width: tab1,
+                color: Color.fromARGB(29, 33, 149, 243),
+                child: tracksTab(),
+              ),
+              AnimatedContainer(
+                width: tab2,
+                duration: Duration(milliseconds: durationMS),
+                curve: Curves.easeInOut,
+                color: Color.fromARGB(29, 244, 67, 54),
+              ),
+              Container(
+                width: tab3,
+                color: Color.fromARGB(76, 76, 175, 79),
+              ),
+            ],
           ),
         ),
-        AnimatedContainer(
-          duration: Duration(milliseconds: 300), // Διάρκεια της animation
-          curve: Curves.easeInOut,
-          width: double.infinity,
-          height: ContainerHeight2,
-          color: colorz,
-        ),
-      ],
+      ),
     );
   }
 }

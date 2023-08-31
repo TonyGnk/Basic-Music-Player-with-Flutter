@@ -128,3 +128,50 @@ class _FabState extends State<Fab> {
     );
   }
 }
+// Text(
+//             "Hello",
+//             style: TextStyle(
+//               color: const Color.fromARGB(255, 76, 76, 76),
+//               fontSize: 120,
+//             ),
+//           ),
+//           Text(
+//             "Hello",
+//             style: TextStyle(
+//               color: const Color.fromARGB(255, 76, 76, 76),
+//               fontSize: 120,
+//             ),
+//           ),
+//           Text(
+//             "Hello",
+//             style: TextStyle(
+//               color: const Color.fromARGB(255, 76, 76, 76),
+//               fontSize: 120,
+//             ),
+//           ),
+//           Container(
+//             color: Colors.transparent, // Color of the box
+//             alignment: Alignment.centerLeft,
+//             child: Text(
+//               "Μουσική",
+//               textAlign: TextAlign.center,
+//               style: TextStyle(
+//                 color: const Color.fromARGB(255, 76, 76, 76),
+//                 fontSize: 20,
+//               ),
+//             ),
+//           ),
+//           Row(children: [
+//             CustomIconButton(
+//               onPressed: () {
+//                 // Add your onPressed logic here
+//               },
+//               icon: SvgPicture.asset('assets/search.svg'),
+//             ),
+//             CustomIconButton(
+//               onPressed: () {
+//                 // Add your onPressed logic here
+//               },
+//               icon: SvgPicture.asset('assets/settings.svg'),
+//             ),
+//           ]),

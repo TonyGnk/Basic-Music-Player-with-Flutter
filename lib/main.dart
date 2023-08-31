@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'Head.dart';
-import 'content.dart';
-import 'fab.dart';
 import 'new.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   //appbar icons to dark
@@ -21,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height + 0;
+    double width = MediaQuery.of(context).size.width + 0;
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
       home: Scaffold(
@@ -31,15 +28,14 @@ class MyApp extends StatelessWidget {
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
+              margin: EdgeInsets.all(0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   idea(
                     initialHeight: height,
+                    initialWidth: width,
                   ),
-                  // Head(),
-                  // Expanded(child: Content()),
-                  // Fab(),
                 ],
               ),
             ),
