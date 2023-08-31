@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'new.dart';
+import 'screen.dart';
 
 void main() {
   //appbar icons to dark
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  idea(
+                  Screen(
                     initialHeight: height,
                     initialWidth: width,
                   ),
