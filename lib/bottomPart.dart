@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'data.dart';
+import 'head.dart';
 import 'list.dart';
+import 'player.dart';
 
+// ignore: must_be_immutable
 class BottomPart extends StatefulWidget {
   final double initialHeight;
   final double initialWidth;
+  Player player = Player();
 
-  BottomPart({required this.initialHeight, required this.initialWidth});
+  BottomPart(
+      {required this.initialHeight,
+      required this.initialWidth,
+      required this.player});
 
   @override
   _NewState createState() => _NewState();
@@ -22,7 +29,6 @@ class _NewState extends State<BottomPart> {
   @override
   void initState() {
     super.initState();
-
     MaxTab = widget.initialWidth;
     tab1 = widget.initialWidth;
   }
@@ -36,16 +42,26 @@ class _NewState extends State<BottomPart> {
       () {
         //To the left drag is negative and to the right drag is positive
         //print hello
-        if (delta < 0) {
-          print("Hello");
-          tab1 = 0;
-          tab2 = MaxTab;
+
+        if (delta < 10) {
+          if (tab2 == MaxTab) {
+            tab2 = 0;
+            tab3 = MaxTab;
+          } else if (tab1 == MaxTab) {
+            tab1 = 0;
+            tab2 = MaxTab;
+          }
         }
-        if (delta > 0) {
-          print("2");
-          tab1 = MaxTab;
-          tab2 = 0;
+        if (delta > -10) {
+          if (tab2 == MaxTab) {
+            tab1 = MaxTab;
+            tab2 = 0;
+          } else if (tab3 == MaxTab) {
+            tab2 = MaxTab;
+            tab3 = 0;
+          }
         }
+
         // if (delta > 10 || delta < -10) {
         //   Cup = ContainerHeight1 + delta;
         //   Cdn = ContainerHeight2 - delta;
@@ -98,18 +114,19 @@ class _NewState extends State<BottomPart> {
               curve: Curves.easeInOut,
               width: tab1,
               color: Color.fromARGB(29, 33, 149, 243),
-              child: MyApp(),
+              child: AudioFilesScreen(playerz: widget.player),
             ),
             AnimatedContainer(
               width: tab2,
               duration: Duration(milliseconds: durationMS),
               curve: Curves.easeInOut,
               color: Color.fromARGB(29, 244, 67, 54),
-              child: AudioFilesScreen(),
+              child: MyApp(),
             ),
             Container(
               width: tab3,
               color: Color.fromARGB(76, 76, 175, 79),
+              child: TracksTab(playerz: widget.player),
             ),
           ],
         ),

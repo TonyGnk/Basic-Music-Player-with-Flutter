@@ -1,12 +1,15 @@
-import 'dart:io';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:musicgnk/player.dart';
 import 'package:path_provider/path_provider.dart';
 
-class tracksTab extends StatelessWidget {
+// ignore: must_be_immutable
+class TracksTab extends StatelessWidget {
   final player = AudioPlayer();
+  Player playerz = Player();
+
+  TracksTab({required this.playerz});
 
   //Create function A setting this await player.setSource(AssetSource('assets/Online.m4a'));
   void playfun() async {
@@ -21,14 +24,16 @@ class tracksTab extends StatelessWidget {
       print(file.extension);
       print(file.path);
 
-      // Get the actual file path from the PlatformFile object
       String filePath = file.path!;
 
-      // Copy the file from the path to the assets\music folder
-      await player.setSource(DeviceFileSource(filePath));
+      //1
+      //Κάλεσε την μέθοδο play του playerz και πέρνα την παράμετρο filePath
+      playerz.play(filePath);
 
-      print("Here");
-      await player.resume();
+      //2
+      // await player.setSource(DeviceFileSource(filePath));
+      // print("Here");
+      // await player.resume();
     }
   }
 

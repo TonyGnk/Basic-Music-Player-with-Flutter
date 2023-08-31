@@ -4,10 +4,12 @@ import 'package:musicgnk/switchPart.dart';
 import 'package:musicgnk/topPart.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'bottomPart.dart';
+import 'player.dart';
 
 class Screen extends StatefulWidget {
   final double initialHeight;
   final double initialWidth;
+  Player player = Player();
 
   Screen({required this.initialHeight, required this.initialWidth});
 
@@ -17,12 +19,13 @@ class Screen extends StatefulWidget {
 
 class _NewState extends State<Screen> {
   //Store in variable initialContainerHeight1 the height of the max height that can rich the first container. Something like double.infinity.
-  double ContainerHeight1 = 330;
+
+  double ContainerHeight1 = 0;
   double ContainerHeight2 = 0;
   double ContainerHeightMax = 0;
-  double swicherHeight = 0;
+  double switcherHeight = 0;
 
-  int durationMS = 300;
+  int durationMS = 600;
   // store the color Color.fromARGB(255, 21, 71, 107),
   Color colorgray = Color.fromARGB(255, 234, 234, 234);
   Color colorblue = Color.fromARGB(255, 26, 34, 62);
@@ -31,17 +34,19 @@ class _NewState extends State<Screen> {
   @override
   void initState() {
     super.initState();
-    swicherHeight = 2 / 5 * widget.initialHeight;
+    switcherHeight = 2 / 5 * widget.initialHeight;
     ContainerHeightMax = 3 / 5 * widget.initialHeight;
-    ContainerHeight1 = ContainerHeightMax;
+    ContainerHeight2 = ContainerHeightMax;
 
-    requestPremissions();
+    requestPermissions();
   }
 
-  requestPremissions() {
-    Permission.storage.request();
-    // Permission.manageExternalStorage.request();
-    // Permission.mediaLibrary.request();
+  void requestPermissions() async {
+    if (await Permission.storage.request().isGranted) {
+      print("TRUE = await Permission.storage.request().isGranted");
+    } else {
+      print("NOT");
+    }
   }
 
   Color transitionColor(Color startColor, Color endColor, double percentage) {
@@ -110,7 +115,6 @@ class _NewState extends State<Screen> {
           curve: Curves.easeInOut,
           width: double.infinity,
           height: ContainerHeight1,
-          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
           decoration: BoxDecoration(
             color: colorz,
@@ -128,7 +132,6 @@ class _NewState extends State<Screen> {
           child: AnimatedContainer(
             duration: Duration(milliseconds: durationMS),
             curve: Curves.easeInOut,
-            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
             decoration: BoxDecoration(
               color: colorz,
               borderRadius: BorderRadius.circular(0),
@@ -138,17 +141,15 @@ class _NewState extends State<Screen> {
               ),
             ),
             width: double.infinity,
-            height: swicherHeight,
-            child: switchPart(),
+            height: switcherHeight,
+            child: SwitchPart(player: widget.player),
           ),
         ),
         AnimatedContainer(
-          duration:
-              Duration(milliseconds: durationMS), // Διάρκεια της animation
+          duration: Duration(milliseconds: durationMS),
           curve: Curves.easeInOut,
           width: double.infinity,
           height: ContainerHeight2,
-          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(0),
             color: colorz,
@@ -161,6 +162,7 @@ class _NewState extends State<Screen> {
           child: BottomPart(
             initialHeight: widget.initialHeight,
             initialWidth: widget.initialWidth,
+            player: widget.player,
           ),
         ),
       ],
