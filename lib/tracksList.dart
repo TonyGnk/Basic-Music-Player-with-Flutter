@@ -12,10 +12,10 @@ class TracksList extends StatefulWidget {
   Directory dir = Directory.current;
 
   @override
-  _AudioFilesScreenState createState() => _AudioFilesScreenState();
+  _TracksList createState() => _TracksList();
 }
 
-class _AudioFilesScreenState extends State<TracksList> {
+class _TracksList extends State<TracksList> {
   List<FileSystemEntity> audioFiles = []; //Δημιουργία λίστας για τα αρχεία ήχου
 
   @override
@@ -55,11 +55,9 @@ class _AudioFilesScreenState extends State<TracksList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Audio Files'),
-      ),
-      body: ListView.builder(
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      child: ListView.builder(
         itemCount: audioFiles.length,
         itemBuilder: (context, index) {
           return ListTile(

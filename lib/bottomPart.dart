@@ -114,7 +114,7 @@ class _NewState extends State<BottomPart> {
               curve: Curves.easeInOut,
               width: tab1,
               color: Color.fromARGB(29, 33, 149, 243),
-              child: AudioFilesScreen(playerz: widget.player),
+              child: TracksList(playerz: widget.player),
             ),
             AnimatedContainer(
               width: tab2,

@@ -1,12 +1,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:musicgnk/switchPart.dart';
+import 'package:musicgnk/tabPart.dart';
 import 'package:musicgnk/topPart.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'bottomPart.dart';
-import 'bottomWhite.dart';
 import 'tracksList.dart';
 import 'player.dart';
+import 'actionBar.dart';
 
 // ignore: must_be_immutable
 class Screen extends StatefulWidget {
@@ -18,7 +17,7 @@ class Screen extends StatefulWidget {
   Color primeWhite = Color.fromARGB(255, 255, 255, 255);
   Color primeFav = Color.fromARGB(255, 116, 94, 158);
 
-  int primeMs = 4300;
+  int primeMs = 300; //Ιδανικό 350
 
   @override
   _NewState createState() => _NewState();
@@ -48,7 +47,7 @@ class _NewState extends State<Screen> {
               Radius.circular(40),
             ),
           ),
-          child: SwitchPart(player: widget.player),
+          child: TopPart(),
         ),
         SizedBox(height: height(MediaQuery.of(context).size.height, 2)),
         AnimatedContainer(
@@ -65,16 +64,38 @@ class _NewState extends State<Screen> {
           child: Column(
             children: [
               Container(
+                decoration: BoxDecoration(
+                  color: widget.primeWhite,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(40),
+                  ),
+                ),
                 child: Column(children: [
                   Container(
                     width: MediaQuery.of(context).size.width - 20,
-                    height: 50,
-                    color: widget.primeWhite,
+                    height: height(MediaQuery.of(context).size.height, 31),
+                    decoration: BoxDecoration(
+                      color: widget.primeWhite,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40)),
+                    ),
+                    child: TabPart(),
                   ),
-                  TracksList(playerz: widget.player),
+                  Container(
+                    width: MediaQuery.of(context).size.width - 20,
+                    height: height(MediaQuery.of(context).size.height, 32),
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: TracksList(playerz: widget.player),
+                  )
                 ]),
               ),
-              SwitchPart(player: widget.player),
+              Container(
+                width: MediaQuery.of(context).size.width - 20,
+                height: height(MediaQuery.of(context).size.height, 33),
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: ActionBar(player: widget.player),
+              )
             ],
           ),
         ),
@@ -99,9 +120,12 @@ class _NewState extends State<Screen> {
     double paddingTop = 0;
     double impact = 0;
     double stableSpacer = 0;
+    double heightDownFirst = 0;
+    double heightDownSecond = 0;
+    double heightDownThird = 0;
 
     stableTop = 400;
-    percentTop = 0.1; //Πόσο μέρος θέλει να πιάνει το UP
+    percentTop = 0.15; //Πόσο μέρος θέλει να πιάνει το UP
     paddingTop = 40; //Για την StatusBar
     impact = 1; //Η οθόνη αλλάζει κατά τόσο % ανάλογα με τις μεταβολές
     stableSpacer = 30; //Σταθερό μέρος του Spacer
@@ -112,13 +136,25 @@ class _NewState extends State<Screen> {
     heightSpacer = 0.3 * (height * 0.04 + (1 - 0.3) * stableSpacer);
     heightDown = height - heightUp - heightSpacer;
 
+    heightDownFirst = 0.3 * (heightDown * 0.1) + 0.7 * 70;
+    heightDownThird = 0.3 * (heightDown * 0.1) + 0.7 * 60;
+    heightDownSecond = heightDown - heightDownFirst - heightDownThird;
+
     //UP = TRUE, Down = FALSE
     if (type == 1) {
       return heightUp;
     } else if (type == 2) {
       return heightSpacer;
-    } else {
+    } else if (type == 3) {
       return heightDown;
+    } else if (type == 31) {
+      return heightDownFirst;
+    } else if (type == 32) {
+      return heightDownSecond;
+    } else if (type == 33) {
+      return heightDownThird;
+    } else {
+      return 0;
     }
   }
 
