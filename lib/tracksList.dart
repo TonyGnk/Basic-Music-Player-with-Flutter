@@ -6,16 +6,16 @@ import 'package:musicgnk/player.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 // ignore: must_be_immutable
-class AudioFilesScreen extends StatefulWidget {
+class TracksList extends StatefulWidget {
   Player playerz = Player();
-  AudioFilesScreen({required this.playerz});
+  TracksList({required this.playerz});
   Directory dir = Directory.current;
 
   @override
   _AudioFilesScreenState createState() => _AudioFilesScreenState();
 }
 
-class _AudioFilesScreenState extends State<AudioFilesScreen> {
+class _AudioFilesScreenState extends State<TracksList> {
   List<FileSystemEntity> audioFiles = []; //Δημιουργία λίστας για τα αρχεία ήχου
 
   @override

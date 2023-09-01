@@ -20,7 +20,7 @@ class _NewState extends State<SwitchPart> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 255, 255, 255),
+        color: Color.fromARGB(255, 116, 94, 158),
         borderRadius: BorderRadius.circular(30),
       ),
       child: ElevatedButton(

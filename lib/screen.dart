@@ -4,41 +4,82 @@ import 'package:musicgnk/switchPart.dart';
 import 'package:musicgnk/topPart.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'bottomPart.dart';
+import 'bottomWhite.dart';
+import 'tracksList.dart';
 import 'player.dart';
 
+// ignore: must_be_immutable
 class Screen extends StatefulWidget {
-  final double initialHeight;
-  final double initialWidth;
+  //Αρχικοποίηση Μεταβλητών
   Player player = Player();
 
-  Screen({required this.initialHeight, required this.initialWidth});
+  Color primeGray = Color.fromARGB(255, 243, 243, 243);
+  Color primeBlue = Color.fromARGB(255, 26, 34, 62);
+  Color primeWhite = Color.fromARGB(255, 255, 255, 255);
+  Color primeFav = Color.fromARGB(255, 116, 94, 158);
+
+  int primeMs = 4300;
 
   @override
   _NewState createState() => _NewState();
 }
 
 class _NewState extends State<Screen> {
-  //Store in variable initialContainerHeight1 the height of the max height that can rich the first container. Something like double.infinity.
-
-  double ContainerHeight1 = 0;
-  double ContainerHeight2 = 0;
-  double ContainerHeightMax = 0;
-  double switcherHeight = 0;
-
-  int durationMS = 600;
-  // store the color Color.fromARGB(255, 21, 71, 107),
-  Color colorgray = Color.fromARGB(255, 234, 234, 234);
-  Color colorblue = Color.fromARGB(255, 26, 34, 62);
-  Color colorz = Color.fromARGB(255, 234, 234, 234);
-
+  //Πρώτη Εκτέλεση
   @override
   void initState() {
     super.initState();
-    switcherHeight = 2 / 5 * widget.initialHeight;
-    ContainerHeightMax = 3 / 5 * widget.initialHeight;
-    ContainerHeight2 = ContainerHeightMax;
 
     requestPermissions();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        AnimatedContainer(
+          duration: Duration(milliseconds: widget.primeMs),
+          curve: Curves.easeInOut,
+          width: MediaQuery.of(context).size.width - 20,
+          height: height(MediaQuery.of(context).size.height, 1),
+          decoration: BoxDecoration(
+            color: widget.primeWhite,
+            borderRadius: BorderRadius.all(
+              Radius.circular(40),
+            ),
+          ),
+          child: SwitchPart(player: widget.player),
+        ),
+        SizedBox(height: height(MediaQuery.of(context).size.height, 2)),
+        AnimatedContainer(
+          duration: Duration(milliseconds: widget.primeMs),
+          curve: Curves.easeInOut,
+          width: MediaQuery.of(context).size.width - 20,
+          height: height(MediaQuery.of(context).size.height, 3),
+          decoration: BoxDecoration(
+            color: widget.primeFav,
+            borderRadius: BorderRadius.all(
+              Radius.circular(40),
+            ),
+          ),
+          child: Column(
+            children: [
+              Container(
+                child: Column(children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width - 20,
+                    height: 50,
+                    color: widget.primeWhite,
+                  ),
+                  TracksList(playerz: widget.player),
+                ]),
+              ),
+              SwitchPart(player: widget.player),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   void requestPermissions() async {
@@ -46,6 +87,38 @@ class _NewState extends State<Screen> {
       print("TRUE = await Permission.storage.request().isGranted");
     } else {
       print("NOT");
+    }
+  }
+
+  double height(double height, int type) {
+    double heightUp = 0;
+    double heightSpacer = 0;
+    double heightDown = 0;
+    double stableTop = 0;
+    double percentTop = 0;
+    double paddingTop = 0;
+    double impact = 0;
+    double stableSpacer = 0;
+
+    stableTop = 400;
+    percentTop = 0.1; //Πόσο μέρος θέλει να πιάνει το UP
+    paddingTop = 40; //Για την StatusBar
+    impact = 1; //Η οθόνη αλλάζει κατά τόσο % ανάλογα με τις μεταβολές
+    stableSpacer = 30; //Σταθερό μέρος του Spacer
+
+    //Υπολογισμοί
+    height = height - paddingTop;
+    heightUp = impact * (height * percentTop) + stableTop * (1 - impact);
+    heightSpacer = 0.3 * (height * 0.04 + (1 - 0.3) * stableSpacer);
+    heightDown = height - heightUp - heightSpacer;
+
+    //UP = TRUE, Down = FALSE
+    if (type == 1) {
+      return heightUp;
+    } else if (type == 2) {
+      return heightSpacer;
+    } else {
+      return heightDown;
     }
   }
 
@@ -62,110 +135,5 @@ class _NewState extends State<Screen> {
     int b = (startColor.blue + (bd * percentage)).toInt();
 
     return Color.fromARGB(255, r, g, b);
-  }
-
-  void _updateActionsVisibility(double delta) {
-    double Cdn = 0;
-    double Cup = 0;
-    double percent = 0;
-
-    setState(() {
-      //The up drag is negative and the down drag is positive
-
-      if (delta > 10 || delta < -10) {
-        Cup = ContainerHeight1 + delta;
-        Cdn = ContainerHeight2 - delta;
-
-        if ((Cup <= ContainerHeightMax && Cdn <= ContainerHeightMax) &&
-            (Cup >= 0 && Cdn >= 0)) {
-          if (delta < 0) {
-            ContainerHeight1 = 0;
-            ContainerHeight2 = ContainerHeightMax;
-            // ContainerHeight1 = ContainerHeight1 + delta;
-            // ContainerHeight2 = ContainerHeight2 - delta;
-            if (Cdn >= 2 / 10 * ContainerHeightMax) {
-              ContainerHeight1 = 0;
-              ContainerHeight2 = ContainerHeightMax;
-            }
-          }
-          if (delta > 0) {
-            ContainerHeight1 = ContainerHeightMax;
-            ContainerHeight2 = 0;
-            // ContainerHeight1 = ContainerHeight1 + delta;
-            // ContainerHeight2 = ContainerHeight2 - delta;
-            if (Cup >= 8 / 10 * ContainerHeightMax) {
-              ContainerHeight1 = ContainerHeightMax;
-              ContainerHeight2 = 0;
-            }
-          }
-          //Αποθήκευσε πόσο μέρους του συνόλου ContainerHeightmax καταλαμβάνει το ContainerHeight1 σε ποσοστό
-          percent = ContainerHeight2 / ContainerHeightMax;
-          colorz = transitionColor(colorgray, colorblue, percent);
-        }
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AnimatedContainer(
-          duration: Duration(milliseconds: durationMS),
-          curve: Curves.easeInOut,
-          width: double.infinity,
-          height: ContainerHeight1,
-          padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
-          decoration: BoxDecoration(
-            color: colorz,
-            border: Border.all(
-              color: colorz,
-              width: 0.1,
-            ),
-          ),
-          child: topPart(),
-        ),
-        GestureDetector(
-          onVerticalDragUpdate: (DragUpdateDetails details) {
-            _updateActionsVisibility(details.primaryDelta!);
-          },
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: durationMS),
-            curve: Curves.easeInOut,
-            decoration: BoxDecoration(
-              color: colorz,
-              borderRadius: BorderRadius.circular(0),
-              border: Border.all(
-                color: colorz,
-                width: 0,
-              ),
-            ),
-            width: double.infinity,
-            height: switcherHeight,
-            child: SwitchPart(player: widget.player),
-          ),
-        ),
-        AnimatedContainer(
-          duration: Duration(milliseconds: durationMS),
-          curve: Curves.easeInOut,
-          width: double.infinity,
-          height: ContainerHeight2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(0),
-            color: colorz,
-            border: Border.all(
-              color: colorz,
-              width: 0,
-            ),
-          ),
-          //Create a child scrollable horizontal item
-          child: BottomPart(
-            initialHeight: widget.initialHeight,
-            initialWidth: widget.initialWidth,
-            player: widget.player,
-          ),
-        ),
-      ],
-    );
   }
 }

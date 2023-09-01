@@ -21,10 +21,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
       home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 246, 246, 246),
+        backgroundColor: Color.fromARGB(255, 243, 243, 243),
         body: Center(
           child: Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
@@ -32,10 +32,7 @@ class MyApp extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Screen(
-                    initialHeight: height,
-                    initialWidth: width,
-                  ),
+                  Screen(),
                 ],
               ),
             ),

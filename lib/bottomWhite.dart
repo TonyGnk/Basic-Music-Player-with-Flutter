@@ -5,21 +5,16 @@ import 'tracksList.dart';
 import 'player.dart';
 
 // ignore: must_be_immutable
-class BottomPart extends StatefulWidget {
-  final double initialHeight;
-  final double initialWidth;
+class BottomWhite extends StatefulWidget {
   Player player = Player();
 
-  BottomPart(
-      {required this.initialHeight,
-      required this.initialWidth,
-      required this.player});
+  BottomWhite({required this.player});
 
   @override
   _NewState createState() => _NewState();
 }
 
-class _NewState extends State<BottomPart> {
+class _NewState extends State<BottomWhite> {
   double tab1 = 0;
   double tab2 = 0;
   double tab3 = 0;
@@ -29,8 +24,8 @@ class _NewState extends State<BottomPart> {
   @override
   void initState() {
     super.initState();
-    MaxTab = widget.initialWidth;
-    tab1 = widget.initialWidth;
+    MaxTab = 170;
+    tab1 = 170;
   }
 
   void _updateTabs(double delta) {
@@ -112,22 +107,21 @@ class _NewState extends State<BottomPart> {
             AnimatedContainer(
               duration: Duration(milliseconds: durationMS),
               curve: Curves.easeInOut,
-              width: tab1,
               color: Color.fromARGB(29, 33, 149, 243),
-              child: AudioFilesScreen(playerz: widget.player),
+              //child: AudioFilesScreen(playerz: widget.player),
             ),
-            AnimatedContainer(
-              width: tab2,
-              duration: Duration(milliseconds: durationMS),
-              curve: Curves.easeInOut,
-              color: Color.fromARGB(29, 244, 67, 54),
-              child: MyApp(),
-            ),
-            Container(
-              width: tab3,
-              color: Color.fromARGB(76, 76, 175, 79),
-              child: TracksTab(playerz: widget.player),
-            ),
+            // AnimatedContainer(
+            //   width: tab2,
+            //   duration: Duration(milliseconds: durationMS),
+            //   curve: Curves.easeInOut,
+            //   color: Color.fromARGB(29, 244, 67, 54),
+            //   child: MyApp(),
+            // ),
+            // Container(
+            //   width: tab3,
+            //   color: Color.fromARGB(76, 76, 175, 79),
+            //   child: TracksTab(playerz: widget.player),
+            // ),
           ],
         ),
       ),
