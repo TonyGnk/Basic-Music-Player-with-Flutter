@@ -85,7 +85,8 @@ class _NewState extends State<Screen> {
                   Container(
                     width: MediaQuery.of(context).size.width - 20,
                     height: height(MediaQuery.of(context).size.height, 32),
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    //color: Color.fromARGB(255, 177, 177, 177),
                     child: TracksList(playerz: widget.player),
                   )
                 ]),

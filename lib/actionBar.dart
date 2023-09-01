@@ -6,7 +6,8 @@ import 'package:musicgnk/player.dart';
 class ActionBar extends StatefulWidget {
   ActionBar({required this.player});
   Player player = Player();
-  bool play = false;
+  bool play = true;
+  bool play2 = true;
 
   @override
   _NewState createState() => _NewState();
@@ -55,47 +56,52 @@ class _NewState extends State<ActionBar> {
           SizedBox(width: 1),
           Expanded(
             child: ElevatedButton.icon(
-                onPressed: () {
-                  if (widget.play) {
-                    widget.player.resume();
-                    setState(() {
-                      widget.play = false;
-                    });
-                  } else {
-                    widget.player.pause();
-                    setState(() {
-                      widget.play = true;
-                    });
-                  }
-                },
-                icon: SvgPicture.asset(
-                  widget.play ? 'assets/play.svg' : 'assets/stop.svg',
-                  width: 34,
-                  height: 34,
-                  colorFilter: ColorFilter.mode(
-                    Colors.white,
-                    BlendMode.srcIn,
-                  ),
+              onPressed: () {
+                if (widget.player.nowPlaying) {
+                  print("h1");
+                  widget.player.pause();
+                  setState(() {
+                    widget.player.setNowPlaying(false);
+                  });
+                } else {
+                  print("h2");
+                  widget.player.resume();
+                  setState(() {
+                    widget.player.setNowPlaying(true);
+                  });
+                }
+              },
+              icon: SvgPicture.asset(
+                widget.player.nowPlaying
+                    ? 'assets/stop.svg'
+                    : 'assets/play.svg',
+                width: 34,
+                height: 34,
+                colorFilter: ColorFilter.mode(
+                  Colors.white,
+                  BlendMode.srcIn,
                 ),
-                label: Text(
-                  '',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                  ),
+              ),
+              label: Text(
+                '',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
                 ),
-                //Changing the style, removing the color and shadow
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                )),
+              ),
+              //Changing the style, removing the color and shadow
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              ),
+            ),
           ),
           SizedBox(width: 1),
           Expanded(
             child: ElevatedButton.icon(
                 onPressed: () {
-                  //For later
+                  widget.player.dispose();
                 },
                 icon: SvgPicture.asset(
                   'assets/next.svg',
@@ -118,6 +124,7 @@ class _NewState extends State<ActionBar> {
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent,
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  elevation: 0,
                 )),
           ),
         ],
