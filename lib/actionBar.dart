@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:musicgnk/player.dart';
 
-// ignore: must_be_immutable
-class ActionBar extends StatefulWidget {
+import 'main.dart';
+
+class ActionBar extends StatelessWidget {
   ActionBar({required this.player});
   Player player = Player();
   bool play = true;
   bool play2 = true;
-
-  @override
-  _NewState createState() => _NewState();
-}
-
-class _NewState extends State<ActionBar> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,26 +47,55 @@ class _NewState extends State<ActionBar> {
           ),
           SizedBox(width: 1),
           Expanded(
+            child: Consumer(
+              builder: (_, WidgetRef ref, __) {
+                final nowPlaying = ref.watch(playingStateProvider);
+                return ElevatedButton.icon(
+                  onPressed: () {
+                    if (nowPlaying) {
+                      print("Set to pause");
+                      player.pause();
+                      ref.read(playingStateProvider.notifier).state = false;
+                    } else {
+                      print("Set to play");
+                      player.resume();
+                      ref.read(playingStateProvider.notifier).state = true;
+                    }
+                  },
+                  icon: SvgPicture.asset(
+                    nowPlaying ? 'assets/stop.svg' : 'assets/play.svg',
+                    width: 34,
+                    height: 34,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  label: Text(
+                    '',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                  //Changing the style, removing the color and shadow
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  ),
+                );
+              },
+            ),
+          ),
+          SizedBox(width: 1),
+          Expanded(
             child: ElevatedButton.icon(
               onPressed: () {
-                if (widget.player.nowPlaying) {
-                  print("h1");
-                  widget.player.pause();
-                  setState(() {
-                    widget.player.setNowPlaying(false);
-                  });
-                } else {
-                  print("h2");
-                  widget.player.resume();
-                  setState(() {
-                    widget.player.setNowPlaying(true);
-                  });
-                }
+                player.dispose();
               },
               icon: SvgPicture.asset(
-                widget.player.nowPlaying
-                    ? 'assets/stop.svg'
-                    : 'assets/play.svg',
+                'assets/next.svg',
                 width: 34,
                 height: 34,
                 colorFilter: ColorFilter.mode(
@@ -94,38 +115,9 @@ class _NewState extends State<ActionBar> {
                 backgroundColor: Colors.transparent,
                 shadowColor: Colors.transparent,
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                elevation: 0,
               ),
             ),
-          ),
-          SizedBox(width: 1),
-          Expanded(
-            child: ElevatedButton.icon(
-                onPressed: () {
-                  widget.player.dispose();
-                },
-                icon: SvgPicture.asset(
-                  'assets/next.svg',
-                  width: 34,
-                  height: 34,
-                  colorFilter: ColorFilter.mode(
-                    Colors.white,
-                    BlendMode.srcIn,
-                  ),
-                ),
-                label: Text(
-                  '',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                  ),
-                ),
-                //Changing the style, removing the color and shadow
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  elevation: 0,
-                )),
           ),
         ],
       ),
