@@ -1,14 +1,13 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'customIconButton.dart';
 
-class TopPart extends StatefulWidget {
+class TopBar extends StatefulWidget {
   @override
   _NewState createState() => _NewState();
 }
 
-class _NewState extends State<TopPart> {
+class _NewState extends State<TopBar> {
   @override
   void initState() {
     super.initState();
@@ -20,7 +19,7 @@ class _NewState extends State<TopPart> {
       child: Text(
         "Μουσική",
         style: TextStyle(
-          color: const Color.fromARGB(255, 76, 76, 76),
+          color: Theme.of(context).colorScheme.onPrimary,
           fontSize: 20,
         ),
       ),

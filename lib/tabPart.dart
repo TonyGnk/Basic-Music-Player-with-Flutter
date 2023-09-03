@@ -1,7 +1,6 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'customIconButton.dart';
 
 class TabPart extends StatefulWidget {
   @override

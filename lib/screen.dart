@@ -1,8 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:musicgnk/tabPart.dart';
 import 'package:musicgnk/topPart.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'main.dart';
 import 'tracksList.dart';
 import 'player.dart';
 import 'actionBar.dart';
@@ -17,7 +19,7 @@ class Screen extends StatefulWidget {
   Color primeWhite = Color.fromARGB(255, 255, 255, 255);
   Color primeFav = Color.fromARGB(255, 116, 94, 158);
 
-  int primeMs = 300; //Ιδανικό 350
+  int primeMs = 200; //Ιδανικό 350
 
   @override
   _NewState createState() => _NewState();
@@ -42,12 +44,12 @@ class _NewState extends State<Screen> {
           width: MediaQuery.of(context).size.width - 20,
           height: height(MediaQuery.of(context).size.height, 1),
           decoration: BoxDecoration(
-            color: widget.primeWhite,
+            color: Theme.of(context).colorScheme.primary,
             borderRadius: BorderRadius.all(
               Radius.circular(40),
             ),
           ),
-          child: TopPart(),
+          child: TopBar(),
         ),
         SizedBox(height: height(MediaQuery.of(context).size.height, 2)),
         AnimatedContainer(
@@ -56,42 +58,49 @@ class _NewState extends State<Screen> {
           width: MediaQuery.of(context).size.width - 20,
           height: height(MediaQuery.of(context).size.height, 3),
           decoration: BoxDecoration(
-            color: widget.primeFav,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.all(
               Radius.circular(40),
             ),
           ),
           child: Column(
             children: [
-              Container(
+              AnimatedContainer(
+                duration: Duration(milliseconds: widget.primeMs),
+                curve: Curves.easeInOut,
                 decoration: BoxDecoration(
-                  color: widget.primeWhite,
+                  color: Theme.of(context).colorScheme.primary,
                   borderRadius: BorderRadius.all(
                     Radius.circular(40),
                   ),
                 ),
                 child: Column(children: [
-                  Container(
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: widget.primeMs),
+                    curve: Curves.easeInOut,
                     width: MediaQuery.of(context).size.width - 20,
                     height: height(MediaQuery.of(context).size.height, 31),
                     decoration: BoxDecoration(
-                      color: widget.primeWhite,
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40),
                           topRight: Radius.circular(40)),
                     ),
                     child: TabPart(),
                   ),
-                  Container(
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: widget.primeMs),
+                    curve: Curves.easeInOut,
                     width: MediaQuery.of(context).size.width - 20,
                     height: height(MediaQuery.of(context).size.height, 32),
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    //color: Color.fromARGB(255, 177, 177, 177),
                     child: TracksList(playerz: widget.player),
                   )
                 ]),
               ),
-              Container(
+              AnimatedContainer(
+                duration: Duration(milliseconds: widget.primeMs),
+                curve: Curves.easeInOut,
                 width: MediaQuery.of(context).size.width - 20,
                 height: height(MediaQuery.of(context).size.height, 33),
                 padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
