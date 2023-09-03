@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:musicgnk/themeData.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'main.dart';
 
@@ -46,6 +48,7 @@ class TopBar extends StatelessWidget {
     return Consumer(
       builder: (_, WidgetRef ref, __) {
         final darkstate = ref.watch(darkStateProvider);
+        final pref = ref.watch(prefs);
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -60,6 +63,7 @@ class TopBar extends StatelessWidget {
               value: darkstate,
               onChanged: (value) {
                 ref.read(darkStateProvider.notifier).state = value;
+                _saveDarkThemePreference(value, pref);
               },
               activeColor: Theme.of(context).colorScheme.primary,
               activeTrackColor: Theme.of(context).colorScheme.error,
@@ -71,7 +75,17 @@ class TopBar extends StatelessWidget {
       },
     );
   }
+
+  void _saveDarkThemePreference(
+      bool value, AsyncValue<SharedPreferences> pref) {
+    if (pref is AsyncData<SharedPreferences>) {
+      pref.value.setBool('darkMode', value);
+    }
+  }
 }
+
+
+
 
 // Expanded(
 //               child: Container(

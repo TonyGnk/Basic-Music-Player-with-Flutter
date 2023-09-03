@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:musicgnk/themeData.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'screen.dart';
 
 void main() {
@@ -72,7 +73,31 @@ final settingsState = StateProvider<bool>((ref) {
 });
 
 final darkStateProvider = StateProvider<bool>((ref) {
-  return true;
+  final sharedPreferencesAsyncValue = ref.watch(prefs);
+  return sharedPreferencesAsyncValue.when(
+    data: (sharedPreferences) {
+      bool? darkEnabled = sharedPreferences.getBool('darkMode');
+      if (darkEnabled != null) {
+        return darkEnabled;
+      } else {
+        return false;
+      }
+    },
+    loading: () {
+      // Handle the case when SharedPreferences is still loading
+      return false; // You can change this to an appropriate default value
+    },
+    error: (error, stackTrace) {
+      // Handle the error case
+      return false; // You can change this to an appropriate default value
+    },
+  );
+});
+
+//Δημιουργία ενός StateProvider που θα αποθηκεύει τις ρυθμίσεις της εφαρμογής
+final prefs = FutureProvider<SharedPreferences>((ref) async {
+  final sharedPreferences = await SharedPreferences.getInstance();
+  return sharedPreferences;
 });
 
 final themeProvider = Provider<ThemeData>((ref) {
