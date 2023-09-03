@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:musicgnk/tabPart.dart';
-import 'package:musicgnk/topPart.dart';
+import 'package:musicgnk/topBar.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'main.dart';
 import 'tracksList.dart';
@@ -13,11 +13,6 @@ import 'actionBar.dart';
 class Screen extends StatefulWidget {
   //Αρχικοποίηση Μεταβλητών
   Player player = Player();
-
-  Color primeGray = Color.fromARGB(255, 243, 243, 243);
-  Color primeBlue = Color.fromARGB(255, 26, 34, 62);
-  Color primeWhite = Color.fromARGB(255, 255, 255, 255);
-  Color primeFav = Color.fromARGB(255, 116, 94, 158);
 
   int primeMs = 200; //Ιδανικό 350
 
@@ -36,80 +31,119 @@ class _NewState extends State<Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AnimatedContainer(
-          duration: Duration(milliseconds: widget.primeMs),
-          curve: Curves.easeInOut,
-          width: MediaQuery.of(context).size.width - 20,
-          height: height(MediaQuery.of(context).size.height, 1),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
-            borderRadius: BorderRadius.all(
-              Radius.circular(40),
-            ),
-          ),
-          child: TopBar(),
-        ),
-        SizedBox(height: height(MediaQuery.of(context).size.height, 2)),
-        AnimatedContainer(
-          duration: Duration(milliseconds: widget.primeMs),
-          curve: Curves.easeInOut,
-          width: MediaQuery.of(context).size.width - 20,
-          height: height(MediaQuery.of(context).size.height, 3),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.all(
-              Radius.circular(40),
-            ),
-          ),
-          child: Column(
-            children: [
-              AnimatedContainer(
+    return Consumer(
+      builder: (_, WidgetRef ref, __) {
+        final settingsOpened = ref.watch(settingsState);
+        return Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                ref.read(settingsState.notifier).state =
+                    !ref.watch(settingsState);
+                print(ref.watch(settingsState));
+              },
+              child: AnimatedContainer(
                 duration: Duration(milliseconds: widget.primeMs),
                 curve: Curves.easeInOut,
+                width: settingsOpened
+                    ? MediaQuery.of(context).size.width
+                    : MediaQuery.of(context).size.width - 20,
+                //if settingsOpened is true then height = 0 else  height(MediaQuery.of(context).size.height, 1)
+                height: settingsOpened
+                    ? height(MediaQuery.of(context).size.height, 11)
+                    : height(MediaQuery.of(context).size.height, 1),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(40),
-                  ),
+                  borderRadius: settingsOpened
+                      ? BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40),
+                        )
+                      : BorderRadius.all(Radius.circular(40)),
                 ),
-                child: Column(children: [
+                child: TopBar(),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    Color.fromARGB(0, 255, 255, 255), // background color
+                foregroundColor: Colors.white,
+                shadowColor: const Color.fromARGB(0, 255, 255, 255),
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                elevation: 0,
+              ),
+            ),
+            SizedBox(
+                height: settingsOpened
+                    ? 0
+                    : height(MediaQuery.of(context).size.height, 2)),
+            AnimatedContainer(
+              duration: Duration(milliseconds: widget.primeMs),
+              curve: Curves.easeInOut,
+              width: MediaQuery.of(context).size.width - 20,
+              height: settingsOpened
+                  ? 0
+                  : height(MediaQuery.of(context).size.height, 3),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(40),
+                ),
+              ),
+              child: Column(
+                children: [
                   AnimatedContainer(
                     duration: Duration(milliseconds: widget.primeMs),
                     curve: Curves.easeInOut,
-                    width: MediaQuery.of(context).size.width - 20,
-                    height: height(MediaQuery.of(context).size.height, 31),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40)),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(40),
+                      ),
                     ),
-                    child: TabPart(),
+                    child: Column(children: [
+                      AnimatedContainer(
+                        duration: Duration(milliseconds: widget.primeMs),
+                        curve: Curves.easeInOut,
+                        width: MediaQuery.of(context).size.width - 20,
+                        height: settingsOpened
+                            ? 0
+                            : height(MediaQuery.of(context).size.height, 31),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              topRight: Radius.circular(40)),
+                        ),
+                        child: TabPart(),
+                      ),
+                      AnimatedContainer(
+                        duration: Duration(milliseconds: widget.primeMs),
+                        curve: Curves.easeInOut,
+                        width: MediaQuery.of(context).size.width - 20,
+                        height: settingsOpened
+                            ? 0
+                            : height(MediaQuery.of(context).size.height, 32),
+                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: TracksList(playerz: widget.player),
+                      )
+                    ]),
                   ),
                   AnimatedContainer(
                     duration: Duration(milliseconds: widget.primeMs),
                     curve: Curves.easeInOut,
                     width: MediaQuery.of(context).size.width - 20,
-                    height: height(MediaQuery.of(context).size.height, 32),
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: TracksList(playerz: widget.player),
+                    height: settingsOpened
+                        ? 0
+                        : height(MediaQuery.of(context).size.height, 33),
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: ActionBar(player: widget.player),
                   )
-                ]),
+                ],
               ),
-              AnimatedContainer(
-                duration: Duration(milliseconds: widget.primeMs),
-                curve: Curves.easeInOut,
-                width: MediaQuery.of(context).size.width - 20,
-                height: height(MediaQuery.of(context).size.height, 33),
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: ActionBar(player: widget.player),
-              )
-            ],
-          ),
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -164,7 +198,7 @@ class _NewState extends State<Screen> {
     } else if (type == 33) {
       return heightDownThird;
     } else {
-      return 0;
+      return height + 10;
     }
   }
 

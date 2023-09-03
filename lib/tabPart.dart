@@ -1,25 +1,13 @@
-import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
-class TabPart extends StatefulWidget {
-  @override
-  _NewState createState() => _NewState();
-}
-
-class _NewState extends State<TabPart> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class TabPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        "Όλα τα τραγούδια",
+        "Κομμάτια",
         style: TextStyle(
-          color: const Color.fromARGB(255, 76, 76, 76),
+          color: Theme.of(context).colorScheme.onPrimary,
           fontSize: 20,
         ),
       ),

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:musicgnk/player.dart';
-import 'package:musicgnk/themeData.dart';
 
 import 'main.dart';
 
+// ignore: must_be_immutable
 class ActionBar extends StatelessWidget {
   ActionBar({required this.player});
   Player player = Player();

@@ -1,6 +1,11 @@
-//Περιγραφή εφαρμογής: Αυτή είναι μια εφαρμογή αναπαραγωγής μουσικής. Ο χρήστης μπορεί να ακούσει τα τραγούδια που έχει στην συσκευή του. Μπορεί να πατήσει το κουμπί play για να ακούσει το τραγούδι που είναι επιλεγμένο. Μπορεί να πατήσει το κουμπί pause για να σταματήσει το τραγούδι που παίζει.
-//Θέλω να ενσωματώσω στην εφαρμογή dark theme και Light theme. Θα δημιουργήσω μια κλάση ThemeData όπου θα ορίζω τα χρώματα για το Light Theme και το Dark Theme. Μετά θα φτιάξω ένα ThemeProvider στην Main που ανάλογα τις ρυθμίσεις της συσκευής θα επιστρέφει το Light Theme ή το Dark Theme.
-
+/// This file contains the main code for the MusicGNK Flutter application.
+/// It imports necessary packages and defines the main function that runs the app.
+/// The app uses the Flutter Riverpod package for state management.
+/// The main function initializes the app and sets the system UI overlay style.
+/// The MyApp class is a ConsumerWidget that builds the app UI using the theme and state providers.
+/// The playingStateProvider, settingsState, darkStateProvider, and themeProvider are all state providers used in the app.
+/// The audioFilesProvider is a FutureProvider that asynchronously loads a list of audio files from the device's storage.
+import 'dart:io';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,12 +25,54 @@ void main() {
   runApp(ProviderScope(child: MyApp()));
 }
 
+//Κλάση MyApp
+class MyApp extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeProvider);
+    return MaterialApp(
+      theme: theme,
+      home: Scaffold(
+        //Set the background color to primaryColor of theme
+        backgroundColor: theme.colorScheme.background,
+        body: Center(
+          child: Consumer(
+            builder: (_, WidgetRef ref, __) {
+              final settingsOpened = ref.watch(settingsState);
+              return Padding(
+                padding: settingsOpened
+                    ? EdgeInsets.fromLTRB(0, 30, 0, 0)
+                    : EdgeInsets.fromLTRB(10, 30, 10, 10),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  margin: EdgeInsets.all(0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Screen(),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 final playingStateProvider = StateProvider<bool>((ref) {
   return false;
 });
 
-final darkStateProvider = StateProvider<bool>((ref) {
+final settingsState = StateProvider<bool>((ref) {
   return false;
+});
+
+final darkStateProvider = StateProvider<bool>((ref) {
+  return true;
 });
 
 final themeProvider = Provider<ThemeData>((ref) {
@@ -57,34 +104,3 @@ final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
   }
   return <FileSystemEntity>[];
 });
-
-//Κλάση MyApp
-class MyApp extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final theme = ref.watch(themeProvider);
-    return MaterialApp(
-      theme: theme,
-      home: Scaffold(
-        //Set the background color to primaryColor of theme
-        backgroundColor: theme.colorScheme.background,
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              margin: EdgeInsets.all(0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Screen(),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

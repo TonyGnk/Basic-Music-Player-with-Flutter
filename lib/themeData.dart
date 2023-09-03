@@ -13,7 +13,7 @@ class MyThemeData {
   static Color _lightOnBackground = Color(0xff000000);
   static Color _lightSurface = Color.fromARGB(255, 116, 94, 158);
   static Color _lightOnSurface = Color(0xff000000);
-  static Color _lightError = Color(0xffb00020);
+  static Color _lightError = Color.fromARGB(255, 116, 94, 158);
   static Color _lightOnError = Color(0xffffffff);
 
   static Color _darkPrimary = Color.fromARGB(255, 37, 37, 37);
@@ -22,7 +22,7 @@ class MyThemeData {
   static Color _darkOnBackground = Color(0xffffffff);
   static Color _darkSurface = Color.fromARGB(255, 53, 43, 72);
   static Color _darkOnSurface = Color(0xffffffff);
-  static Color _darkError = Color(0xffcf6679);
+  static Color _darkError = Color.fromARGB(255, 116, 94, 158);
   static Color _darkOnError = Color(0xffffffff);
 
   //Δημιουργία μεθόδου για το Light Theme
