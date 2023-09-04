@@ -11,19 +11,19 @@ class MyThemeData {
   static Color _lightOnPrimary = Color(0xff000000);
   static Color _lightBackground = Color.fromARGB(255, 243, 243, 243);
   static Color _lightOnBackground = Color(0xff000000);
-  static Color _lightSurface = Color.fromARGB(255, 116, 94, 158);
+  static Color _lightSurface = Color.fromARGB(255, 58, 85, 145);
   static Color _lightOnSurface = Color(0xff000000);
-  static Color _lightError = Color.fromARGB(255, 116, 94, 158);
-  static Color _lightOnError = Color(0xffffffff);
+  static Color _lightError = Color.fromARGB(255, 58, 85, 145);
+  static Color _lightOnError = Color.fromARGB(255, 164, 170, 188);
 
   static Color _darkPrimary = Color.fromARGB(255, 37, 37, 37);
   static Color _darkOnPrimary = Color(0xffffffff);
   static Color _darkBackground = Color.fromARGB(255, 0, 0, 0);
   static Color _darkOnBackground = Color(0xffffffff);
-  static Color _darkSurface = Color.fromARGB(255, 53, 43, 72);
+  static Color _darkSurface = Color.fromARGB(255, 35, 51, 87);
   static Color _darkOnSurface = Color(0xffffffff);
-  static Color _darkError = Color.fromARGB(255, 116, 94, 158);
-  static Color _darkOnError = Color(0xffffffff);
+  static Color _darkError = Color.fromARGB(255, 58, 85, 145);
+  static Color _darkOnError = Color.fromARGB(255, 68, 71, 79);
 
   //Δημιουργία μεθόδου για το Light Theme
   static final ThemeData lightTheme = ThemeData(

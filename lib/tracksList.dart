@@ -43,7 +43,8 @@ class TracksList extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            musicIcon(),
+                            //give the context to the widget
+                            musicIcon(context),
                             SizedBox(width: 1),
                             Expanded(
                               child: Container(
@@ -65,7 +66,7 @@ class TracksList extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      removeLastFour(audioFiles[index]
+                                      removeExtension(audioFiles[index]
                                           .uri
                                           .pathSegments
                                           .last),
@@ -106,44 +107,36 @@ class TracksList extends StatelessWidget {
     );
   }
 
-  Widget musicIcon() {
-    return Consumer(
-      builder: (context, ref, _) {
-        final playingState = ref.watch(playingStateProvider);
-        final darkState = ref.watch(darkStateProvider);
-        return Container(
-          height: 70,
-          width: 70,
-          padding: EdgeInsets.all(10),
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-            decoration: BoxDecoration(
-              color: darkState
-                  ? Color.fromARGB(255, 69, 66, 75)
-                  : Color.fromARGB(255, 178, 171, 191),
-              borderRadius: BorderRadius.all(
-                Radius.circular(18),
-              ),
-            ),
-            child: Center(
-              child: SvgPicture.asset(
-                'assets/music.svg',
-                width: 20,
-                height: 20,
-                colorFilter: ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
-                ),
-              ),
+  Widget musicIcon(BuildContext context) {
+    return Container(
+      height: 70,
+      width: 70,
+      padding: EdgeInsets.all(10),
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.onError,
+          borderRadius: BorderRadius.all(
+            Radius.circular(18),
+          ),
+        ),
+        child: Center(
+          child: SvgPicture.asset(
+            'assets/music.svg',
+            width: 20,
+            height: 20,
+            colorFilter: ColorFilter.mode(
+              Colors.white,
+              BlendMode.srcIn,
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
-  String removeLastFour(String str) {
+  String removeExtension(String str) {
     return str.substring(0, str.length - 4);
   }
 }

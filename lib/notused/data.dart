@@ -1,17 +1,16 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_media_metadata/flutter_media_metadata.dart';
 
-class MyApp extends StatefulWidget {
+class MyDApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyDApp> {
   Widget? _child;
 
   @override
@@ -46,6 +45,7 @@ class _MyAppState extends State<MyApp> {
                     });
                 } else {
                   /// Use [MetadataRetriever.fromFile] on Windows, Linux, macOS, Android or iOS.
+                  print("Not Web");
                   MetadataRetriever.fromFile(
                     File(result.files.first.path!),
                   )

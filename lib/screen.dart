@@ -31,10 +31,19 @@ class _NewState extends State<Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (_, WidgetRef ref, __) {
-        final settingsOpened = ref.watch(settingsState);
-        return Column(
+    return Consumer(builder: (_, WidgetRef ref, __) {
+      final settingsOpened = ref.watch(settingsState);
+      return WillPopScope(
+        onWillPop: () async {
+          final settingsOpened = ref.watch(settingsState);
+          if (settingsOpened) {
+            ref.read(settingsState.notifier).state = false;
+            return false; // Prevent the back navigation
+          } else {
+            return true; // Allow the back navigation
+          }
+        },
+        child: Column(
           children: [
             ElevatedButton(
               onPressed: () {
@@ -48,7 +57,6 @@ class _NewState extends State<Screen> {
                 width: settingsOpened
                     ? MediaQuery.of(context).size.width
                     : MediaQuery.of(context).size.width - 20,
-                //if settingsOpened is true then height = 0 else  height(MediaQuery.of(context).size.height, 1)
                 height: settingsOpened
                     ? height(MediaQuery.of(context).size.height, 11)
                     : height(MediaQuery.of(context).size.height, 1),
@@ -142,9 +150,9 @@ class _NewState extends State<Screen> {
               ),
             ),
           ],
-        );
-      },
-    );
+        ),
+      );
+    });
   }
 
   void requestPermissions() async {

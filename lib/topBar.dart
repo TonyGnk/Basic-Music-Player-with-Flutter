@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:musicgnk/themeData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'main.dart';
@@ -26,7 +25,7 @@ class TopBar extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 60),
-                    DarkThemeSwitcher(context),
+                    darkThemeSwitcher(context),
                   ],
                 ),
               )
@@ -43,8 +42,7 @@ class TopBar extends StatelessWidget {
     );
   }
 
-  //widget for
-  Widget DarkThemeSwitcher(BuildContext context) {
+  Widget darkThemeSwitcher(BuildContext context) {
     return Consumer(
       builder: (_, WidgetRef ref, __) {
         final darkstate = ref.watch(darkStateProvider);

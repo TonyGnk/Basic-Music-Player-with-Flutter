@@ -6,10 +6,11 @@
 /// The playingStateProvider, settingsState, darkStateProvider, and themeProvider are all state providers used in the app.
 /// The audioFilesProvider is a FutureProvider that asynchronously loads a list of audio files from the device's storage.
 import 'dart:io';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+//import 'package:metadata_god/metadata_god.dart';
+import 'package:musicgnk/songs.dart';
 import 'package:musicgnk/themeData.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +24,7 @@ void main() {
     statusBarIconBrightness: Brightness.dark,
   ));
 
+  //MetadataGod.initialize();
   runApp(ProviderScope(child: MyApp()));
 }
 
@@ -106,6 +108,12 @@ final themeProvider = Provider<ThemeData>((ref) {
   return isDarkMode ? MyThemeData.darkTheme : MyThemeData.lightTheme;
 });
 
+final audioMetadata = Provider<ThemeData>((ref) {
+  // Επιλέξτε το θέμα βάσει των ρυθμίσεων της εφαρμογής (φωτεινή ή σκοτεινή λειτουργία)
+  bool isDarkMode = ref.watch(darkStateProvider);
+  return isDarkMode ? MyThemeData.darkTheme : MyThemeData.lightTheme;
+});
+
 //Create a provider that asynchronously loads a list of audio files
 final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
   if (await Permission.storage.request().isGranted) {
@@ -113,19 +121,35 @@ final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
     List<FileSystemEntity> files = [];
 
     if (Platform.isWindows) {
-      directory = Directory('C:/Downloads');
+      //directory for users music
+      directory =
+          Directory('C:/Users/${Platform.environment['USERNAME']}/Music');
       files = directory.listSync();
     } else if (Platform.isAndroid) {
       directory = Directory('/storage/emulated/0/Music');
       files = directory.listSync();
     }
 
-    return files
+    // //Κάθε αντικείμενο files στείλε το στην μέθοδο Song ώστε να δημιουργηθεί ένα αντικείμενο μουσικής, η song δεν επιστρέφει και δέχεται ένα filesystementite
+    // for (var file in files) {
+    //   Song(file);
+    // }
+
+    // Επιστρέψτε μια λίστα με αντικείμενα τύπου FileSystemEntity που είναι αρχεία ήχου
+    final audioFiles = files
         .where((file) =>
             file.path.endsWith('.m4a') ||
             file.path.endsWith('.mp3') ||
             file.path.endsWith('.wav'))
         .toList();
+
+    // Δημιουργήστε τα αντικείμενα Song μόνο για τα αρχεία ήχου
+    for (var file in audioFiles) {
+      //Song(file);
+    }
+
+    return audioFiles;
   }
+  // Επιστρέψτε μια κενή λίστα αν ο χρήστης δεν έχει δώσει άδεια
   return <FileSystemEntity>[];
 });
