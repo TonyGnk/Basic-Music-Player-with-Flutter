@@ -1,10 +1,10 @@
 // //Αυτή είναι η κλάση για κάθε τραγούδι.
-// //Κάθε τραγούδι περιέχει τον τίτλο, τον καλλιτέχνη, τον χρόνο και το άλμπουμ.
+// //Κάθε τραγούδι περιέχει τα αναμενόμενα απαραίτητα πεδία
 // //Για την δημιουργία του κάθε τραγουδιού χρειάζεται ένα FileSystemEntity που είναι αρχείο ήχου
 
-// import 'package:metadata_god/metadata_god.dart';
 // import 'dart:io';
-// import 'package:path/path.dart' as path;
+
+// import 'package:flutter_media_metadata/flutter_media_metadata.dart';
 
 // class Song {
 //   late String title;
@@ -18,15 +18,14 @@
 //   }
 
 //   Future<void> initializeMetadata(FileSystemEntity audioFile) async {
-//     // Ελέγξτε τον τύπο του αρχείου πριν από την ανάγνωση των μεταδεδομένων.
-//     if (audioFile is File && path.extension(audioFile.path) == '.mp3') {
-//       final metadata = await MetadataGod.readMetadata(file: audioFile.path);
+//     if (audioFile is File) {
+//       final metadata = await MetadataRetriever.fromFile(audioFile);
 
-//       title = metadata.title ?? "Unknown Title";
+//       title = metadata.trackName ?? "Unknown Title";
 //       print(title);
-//       artist = metadata.artist ?? "Unknown Artist";
+//       artist = metadata.authorName ?? "Unknown Artist";
 //       print(artist);
-//       album = metadata.album ?? "Unknown Album";
+//       album = metadata.albumName ?? "Unknown Album";
 //       print(album);
 //     } else {
 //       print("Unsupported file type or format: ${audioFile.runtimeType}");

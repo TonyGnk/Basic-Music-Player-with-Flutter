@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    
+<!-- Persmisshion for write and read -->
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
-      android:requestLegacyExternalStorage="true"
-        android:label="musicgnk"
+        android:requestLegacyExternalStorage="true"
+        android:label="music_switch_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -1,6 +1,6 @@
 {
-    "name": "musicgnk",
-    "short_name": "musicgnk",
+    "name": "music_switch_app",
+    "short_name": "music_switch_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

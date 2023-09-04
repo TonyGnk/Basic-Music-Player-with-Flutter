@@ -9,7 +9,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-//import 'package:metadata_god/metadata_god.dart';
 import 'package:musicgnk/songs.dart';
 import 'package:musicgnk/themeData.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -24,7 +23,6 @@ void main() {
     statusBarIconBrightness: Brightness.dark,
   ));
 
-  //MetadataGod.initialize();
   runApp(ProviderScope(child: MyApp()));
 }
 
@@ -130,7 +128,7 @@ final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
       files = directory.listSync();
     }
 
-    // //Κάθε αντικείμενο files στείλε το στην μέθοδο Song ώστε να δημιουργηθεί ένα αντικείμενο μουσικής, η song δεν επιστρέφει και δέχεται ένα filesystementite
+    //Κάθε αντικείμενο files στείλε το στην μέθοδο Song ώστε να δημιουργηθεί ένα αντικείμενο μουσικής, η song δεν επιστρέφει και δέχεται ένα filesystementite
     // for (var file in files) {
     //   Song(file);
     // }
