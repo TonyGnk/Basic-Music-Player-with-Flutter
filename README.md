@@ -12,7 +12,7 @@ A simple Flutter application to play music from the user's Windows Downloads fol
 
 ## 🚀 Getting Started
 
-Follow these steps to get started with the Project SwitchOS:
+Follow these steps to get started with the Project:
 
 1. Clone the repository: `git clone https://github.com/TonyGnk/MusicSwitchApp.git`
 2. Navigate to the app directory: `cd MusicSwitchApp`
