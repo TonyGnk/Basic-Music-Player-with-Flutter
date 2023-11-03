@@ -1,10 +1,8 @@
 # 🎵 Basic Flutter Music Player
 
-A simple Flutter application to play music from the user's Windows Downloads folder and the Android's downloads and music directory
-
 ## 🌟 Introduction
 
-Music SwitchApp is a part of Project SwitchOS, a collection of Flutter apps that showcase the innovative UI design inspired by the Android Switch component. With Music SwitchApp, you can explore and listen to your favorite music with a unique twist in user interactions.
+A simple Flutter application to play music from the user's Windows Downloads folder and the Android's downloads and music directory
 
 ## ✨ Features
 
