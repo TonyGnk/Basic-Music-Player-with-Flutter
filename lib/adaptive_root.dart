@@ -51,7 +51,9 @@ Widget rootConfig(
           darkTheme: darkTheme,
           debugShowCheckedModeBanner: false,
           home: Scaffold(
-            backgroundColor: theme.colorScheme.background,
-            body: const MyApp(),
+            body: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                color: theme.colorScheme.background,
+                child: const MyApp()),
           )),
     );

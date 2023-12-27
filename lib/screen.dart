@@ -14,7 +14,7 @@ class Screen extends StatefulWidget {
   //Αρχικοποίηση Μεταβλητών
   Player player = Player();
 
-  int primeMs = 200;
+  int primeMs = 300;
 
   Screen({super.key}); //Ιδανικό 350
 
@@ -23,7 +23,6 @@ class Screen extends StatefulWidget {
 }
 
 class _NewState extends State<Screen> {
-  //Πρώτη Εκτέλεση
   @override
   void initState() {
     super.initState();

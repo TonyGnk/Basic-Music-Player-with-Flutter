@@ -15,7 +15,7 @@ class TopBar extends StatelessWidget {
         final settingsOpened = ref.watch(settingsState);
         return settingsOpened
             ? AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                 child: Column(

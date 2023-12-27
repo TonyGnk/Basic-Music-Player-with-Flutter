@@ -35,7 +35,8 @@ class TracksList extends StatelessWidget {
                           ref.read(playingStateProvider.notifier).state = true;
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+                          backgroundColor:
+                              const Color.fromARGB(0, 255, 255, 255),
                           foregroundColor: Colors.white,
                           shadowColor: const Color.fromARGB(0, 255, 255, 255),
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
