@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,157 +12,155 @@ import 'player.dart';
 import 'action_bar.dart';
 
 // ignore: must_be_immutable
-class Screen extends StatefulWidget {
-  //Αρχικοποίηση Μεταβλητών
-  Player player = Player();
+class Screen extends ConsumerStatefulWidget {
+  Screen({super.key});
+  final player = Player();
 
-  int primeMs = 300;
-
-  Screen({super.key}); //Ιδανικό 350
+  final primeMs = 300;
 
   @override
-  _NewState createState() => _NewState();
+  ConsumerState<Screen> createState() => _NewState();
 }
 
-class _NewState extends State<Screen> {
+class _NewState extends ConsumerState<Screen> {
   @override
   void initState() {
     super.initState();
-
     requestPermissions();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Consumer(builder: (_, WidgetRef ref, __) {
-      final settingsOpened = ref.watch(settingsState);
-      return WillPopScope(
-        onWillPop: () async {
-          final settingsOpened = ref.watch(settingsState);
-          if (settingsOpened) {
-            ref.read(settingsState.notifier).state = false;
-            return false; // Prevent the back navigation
-          } else {
-            return true; // Allow the back navigation
-          }
-        },
-        child: Column(
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                ref.read(settingsState.notifier).state =
-                    !ref.watch(settingsState);
-                print(ref.watch(settingsState));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    const Color.fromARGB(0, 255, 255, 255), // background color
-                foregroundColor: Colors.white,
-                shadowColor: const Color.fromARGB(0, 255, 255, 255),
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                elevation: 0,
+  Widget build(BuildContext context) =>
+      Consumer(builder: (_, WidgetRef ref, __) {
+        final settingsOpened = ref.watch(settingsState);
+        return WillPopScope(
+          onWillPop: () async {
+            final settingsOpened = ref.watch(settingsState);
+            if (settingsOpened) {
+              ref.read(settingsState.notifier).state = false;
+              return false; // Prevent the back navigation
+            } else {
+              return true; // Allow the back navigation
+            }
+          },
+
+          //If the settings are opened, then the back button close the settings
+
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  ref.read(settingsState.notifier).state =
+                      !ref.watch(settingsState);
+                  print(ref.watch(settingsState));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+                  foregroundColor: Colors.white,
+                  shadowColor: const Color.fromARGB(0, 255, 255, 255),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  elevation: 0,
+                ),
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: widget.primeMs),
+                  curve: Curves.easeInOut,
+                  width: settingsOpened
+                      ? MediaQuery.of(context).size.width
+                      : MediaQuery.of(context).size.width - 20,
+                  height: settingsOpened
+                      ? height(MediaQuery.of(context).size.height, 11)
+                      : height(MediaQuery.of(context).size.height, 1),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: settingsOpened
+                        ? const BorderRadius.only(
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40),
+                          )
+                        : const BorderRadius.all(Radius.circular(40)),
+                  ),
+                  child: const TopBar(),
+                ),
               ),
-              child: AnimatedContainer(
+              SizedBox(
+                  height: settingsOpened
+                      ? 0
+                      : height(MediaQuery.of(context).size.height, 2)),
+              AnimatedContainer(
                 duration: Duration(milliseconds: widget.primeMs),
                 curve: Curves.easeInOut,
-                width: settingsOpened
-                    ? MediaQuery.of(context).size.width
-                    : MediaQuery.of(context).size.width - 20,
-                height: settingsOpened
-                    ? height(MediaQuery.of(context).size.height, 11)
-                    : height(MediaQuery.of(context).size.height, 1),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: settingsOpened
-                      ? const BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40),
-                        )
-                      : const BorderRadius.all(Radius.circular(40)),
-                ),
-                child: const TopBar(),
-              ),
-            ),
-            SizedBox(
+                width: MediaQuery.of(context).size.width - 20,
                 height: settingsOpened
                     ? 0
-                    : height(MediaQuery.of(context).size.height, 2)),
-            AnimatedContainer(
-              duration: Duration(milliseconds: widget.primeMs),
-              curve: Curves.easeInOut,
-              width: MediaQuery.of(context).size.width - 20,
-              height: settingsOpened
-                  ? 0
-                  : height(MediaQuery.of(context).size.height, 3),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(40),
+                    : height(MediaQuery.of(context).size.height, 3),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surface,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(40),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: widget.primeMs),
+                      curve: Curves.easeInOut,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(40),
+                        ),
+                      ),
+                      child: Column(children: [
+                        AnimatedContainer(
+                          duration: Duration(milliseconds: widget.primeMs),
+                          curve: Curves.easeInOut,
+                          width: MediaQuery.of(context).size.width - 20,
+                          height: settingsOpened
+                              ? 0
+                              : height(MediaQuery.of(context).size.height, 31),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primary,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(40),
+                                topRight: Radius.circular(40)),
+                          ),
+                          child: const TabPart(),
+                        ),
+                        AnimatedContainer(
+                          duration: Duration(milliseconds: widget.primeMs),
+                          curve: Curves.easeInOut,
+                          width: MediaQuery.of(context).size.width - 20,
+                          height: settingsOpened
+                              ? 0
+                              : height(MediaQuery.of(context).size.height, 32),
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: TracksList(playerz: widget.player),
+                        )
+                      ]),
+                    ),
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: widget.primeMs),
+                      curve: Curves.easeInOut,
+                      width: MediaQuery.of(context).size.width - 20,
+                      height: settingsOpened
+                          ? 0
+                          : height(MediaQuery.of(context).size.height, 33),
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      child: ActionBar(player: widget.player),
+                    )
+                  ],
                 ),
               ),
-              child: Column(
-                children: [
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: widget.primeMs),
-                    curve: Curves.easeInOut,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(40),
-                      ),
-                    ),
-                    child: Column(children: [
-                      AnimatedContainer(
-                        duration: Duration(milliseconds: widget.primeMs),
-                        curve: Curves.easeInOut,
-                        width: MediaQuery.of(context).size.width - 20,
-                        height: settingsOpened
-                            ? 0
-                            : height(MediaQuery.of(context).size.height, 31),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(40),
-                              topRight: Radius.circular(40)),
-                        ),
-                        child: const TabPart(),
-                      ),
-                      AnimatedContainer(
-                        duration: Duration(milliseconds: widget.primeMs),
-                        curve: Curves.easeInOut,
-                        width: MediaQuery.of(context).size.width - 20,
-                        height: settingsOpened
-                            ? 0
-                            : height(MediaQuery.of(context).size.height, 32),
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: TracksList(playerz: widget.player),
-                      )
-                    ]),
-                  ),
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: widget.primeMs),
-                    curve: Curves.easeInOut,
-                    width: MediaQuery.of(context).size.width - 20,
-                    height: settingsOpened
-                        ? 0
-                        : height(MediaQuery.of(context).size.height, 33),
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: ActionBar(player: widget.player),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    });
-  }
+            ],
+          ),
+        );
+      });
 
   void requestPermissions() async {
     if (await Permission.storage.request().isGranted) {
       print("TRUE = await Permission.storage.request().isGranted");
     } else {
-      print("NOT");
+      print("FALSE = await Permission.storage.request().isGranted");
     }
   }
 
