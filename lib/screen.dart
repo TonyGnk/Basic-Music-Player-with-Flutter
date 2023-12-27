@@ -1,13 +1,13 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:musicgnk/tabPart.dart';
-import 'package:musicgnk/topBar.dart';
+import 'package:musicgnk/tab_part.dart';
+import 'package:musicgnk/top_bar.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'main.dart';
-import 'tracksList.dart';
+import 'tracks_list.dart';
 import 'player.dart';
-import 'actionBar.dart';
+import 'action_bar.dart';
 
 // ignore: must_be_immutable
 class Screen extends StatefulWidget {
