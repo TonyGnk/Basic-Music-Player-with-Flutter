@@ -6,6 +6,7 @@
 /// The playingStateProvider, settingsState, darkStateProvider, and themeProvider are all state providers used in the app.
 /// The audioFilesProvider is a FutureProvider that asynchronously loads a list of audio files from the device's storage.
 library;
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +35,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(themeProvider);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: theme,
       home: Scaffold(
         //Set the background color to primaryColor of theme
@@ -103,13 +105,11 @@ final prefs = FutureProvider<SharedPreferences>((ref) async {
 });
 
 final themeProvider = Provider<ThemeData>((ref) {
-  // Επιλέξτε το θέμα βάσει των ρυθμίσεων της εφαρμογής (φωτεινή ή σκοτεινή λειτουργία)
   bool isDarkMode = ref.watch(darkStateProvider);
   return isDarkMode ? MyThemeData.darkTheme : MyThemeData.lightTheme;
 });
 
 final audioMetadata = Provider<ThemeData>((ref) {
-  // Επιλέξτε το θέμα βάσει των ρυθμίσεων της εφαρμογής (φωτεινή ή σκοτεινή λειτουργία)
   bool isDarkMode = ref.watch(darkStateProvider);
   return isDarkMode ? MyThemeData.darkTheme : MyThemeData.lightTheme;
 });
@@ -130,12 +130,10 @@ final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
       files = directory.listSync();
     }
 
-    //Κάθε αντικείμενο files στείλε το στην μέθοδο Song ώστε να δημιουργηθεί ένα αντικείμενο μουσικής, η song δεν επιστρέφει και δέχεται ένα filesystementite
     // for (var file in files) {
     //   Song(file);
     // }
 
-    // Επιστρέψτε μια λίστα με αντικείμενα τύπου FileSystemEntity που είναι αρχεία ήχου
     final audioFiles = files
         .where((file) =>
             file.path.endsWith('.m4a') ||
@@ -143,13 +141,11 @@ final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
             file.path.endsWith('.wav'))
         .toList();
 
-    // Δημιουργήστε τα αντικείμενα Song μόνο για τα αρχεία ήχου
     for (var file in audioFiles) {
       //Song(file);
     }
 
     return audioFiles;
   }
-  // Επιστρέψτε μια κενή λίστα αν ο χρήστης δεν έχει δώσει άδεια
   return <FileSystemEntity>[];
 });

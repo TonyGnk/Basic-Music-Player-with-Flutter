@@ -33,7 +33,7 @@ class TopBar extends StatelessWidget {
               )
             : Center(
                 child: Text(
-                  "Μουσική",
+                  "Music",
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onPrimary,
                     fontSize: 20,

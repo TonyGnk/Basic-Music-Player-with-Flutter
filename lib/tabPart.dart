@@ -7,7 +7,7 @@ class TabPart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        "Κομμάτια",
+        "Tracks",
         style: TextStyle(
           color: Theme.of(context).colorScheme.onPrimary,
           fontSize: 20,
