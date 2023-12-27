@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Content extends StatelessWidget {
+  const Content({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -24,7 +26,7 @@ class Content extends StatelessWidget {
           topRight: Radius.circular(0),
         ),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       child: Column(
         verticalDirection: VerticalDirection.down,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -33,7 +35,7 @@ class Content extends StatelessWidget {
           Expanded(
             child: Container(
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 255, 255, 255),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(32),
@@ -49,7 +51,7 @@ class Content extends StatelessWidget {
                     50,
                     (index) => Container(
                         height: 40,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           border: Border(
                             left: BorderSide(
                               color: Color.fromARGB(255, 0, 0, 0),
@@ -69,7 +71,7 @@ class Content extends StatelessWidget {
                             ),
                           ),
                         ),
-                        child: Text("Hello World")),
+                        child: const Text("Hello World")),
                   ),
                 ),
               ),

@@ -5,11 +5,11 @@
 /// The MyApp class is a ConsumerWidget that builds the app UI using the theme and state providers.
 /// The playingStateProvider, settingsState, darkStateProvider, and themeProvider are all state providers used in the app.
 /// The audioFilesProvider is a FutureProvider that asynchronously loads a list of audio files from the device's storage.
+library;
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:musicgnk/songs.dart';
 import 'package:musicgnk/themeData.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,16 +18,18 @@ import 'screen.dart';
 void main() {
   WidgetsFlutterBinding
       .ensureInitialized(); //Εξασφαλίζει ότι η συσκευή έχει αρχικοποιηθεί πλήρως
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
 
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 //Κλάση MyApp
 class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(themeProvider);
@@ -42,12 +44,12 @@ class MyApp extends ConsumerWidget {
               final settingsOpened = ref.watch(settingsState);
               return Padding(
                 padding: settingsOpened
-                    ? EdgeInsets.fromLTRB(0, 30, 0, 0)
-                    : EdgeInsets.fromLTRB(10, 30, 10, 10),
+                    ? const EdgeInsets.fromLTRB(0, 30, 0, 0)
+                    : const EdgeInsets.fromLTRB(10, 30, 10, 10),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
-                  margin: EdgeInsets.all(0),
+                  margin: const EdgeInsets.all(0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

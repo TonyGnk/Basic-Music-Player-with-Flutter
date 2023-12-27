@@ -14,7 +14,9 @@ class Screen extends StatefulWidget {
   //Αρχικοποίηση Μεταβλητών
   Player player = Player();
 
-  int primeMs = 200; //Ιδανικό 350
+  int primeMs = 200;
+
+  Screen({super.key}); //Ιδανικό 350
 
   @override
   _NewState createState() => _NewState();
@@ -51,6 +53,14 @@ class _NewState extends State<Screen> {
                     !ref.watch(settingsState);
                 print(ref.watch(settingsState));
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    const Color.fromARGB(0, 255, 255, 255), // background color
+                foregroundColor: Colors.white,
+                shadowColor: const Color.fromARGB(0, 255, 255, 255),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                elevation: 0,
+              ),
               child: AnimatedContainer(
                 duration: Duration(milliseconds: widget.primeMs),
                 curve: Curves.easeInOut,
@@ -63,21 +73,13 @@ class _NewState extends State<Screen> {
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: settingsOpened
-                      ? BorderRadius.only(
+                      ? const BorderRadius.only(
                           topLeft: Radius.circular(40),
                           topRight: Radius.circular(40),
                         )
-                      : BorderRadius.all(Radius.circular(40)),
+                      : const BorderRadius.all(Radius.circular(40)),
                 ),
-                child: TopBar(),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    Color.fromARGB(0, 255, 255, 255), // background color
-                foregroundColor: Colors.white,
-                shadowColor: const Color.fromARGB(0, 255, 255, 255),
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                elevation: 0,
+                child: const TopBar(),
               ),
             ),
             SizedBox(
@@ -93,7 +95,7 @@ class _NewState extends State<Screen> {
                   : height(MediaQuery.of(context).size.height, 3),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(40),
                 ),
               ),
@@ -104,7 +106,7 @@ class _NewState extends State<Screen> {
                     curve: Curves.easeInOut,
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.all(
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(40),
                       ),
                     ),
@@ -118,11 +120,11 @@ class _NewState extends State<Screen> {
                             : height(MediaQuery.of(context).size.height, 31),
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(40),
                               topRight: Radius.circular(40)),
                         ),
-                        child: TabPart(),
+                        child: const TabPart(),
                       ),
                       AnimatedContainer(
                         duration: Duration(milliseconds: widget.primeMs),
@@ -131,7 +133,7 @@ class _NewState extends State<Screen> {
                         height: settingsOpened
                             ? 0
                             : height(MediaQuery.of(context).size.height, 32),
-                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: TracksList(playerz: widget.player),
                       )
                     ]),
@@ -143,7 +145,7 @@ class _NewState extends State<Screen> {
                     height: settingsOpened
                         ? 0
                         : height(MediaQuery.of(context).size.height, 33),
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: ActionBar(player: widget.player),
                   )
                 ],

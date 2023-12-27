@@ -7,7 +7,7 @@ import 'main.dart';
 
 // ignore: must_be_immutable
 class ActionBar extends StatelessWidget {
-  ActionBar({required this.player});
+  ActionBar({super.key, required this.player});
   Player player = Player();
 
   @override
@@ -29,12 +29,12 @@ class ActionBar extends StatelessWidget {
                     'assets/previous.svg',
                     width: 34,
                     height: 34,
-                    colorFilter: ColorFilter.mode(
+                    colorFilter: const ColorFilter.mode(
                       Colors.white,
                       BlendMode.srcIn,
                     ),
                   ),
-                  label: Text(
+                  label: const Text(
                     '',
                     style: TextStyle(
                       fontSize: 14,
@@ -45,13 +45,13 @@ class ActionBar extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   ),
                 );
               },
             ),
           ),
-          SizedBox(width: 1),
+          const SizedBox(width: 1),
           Expanded(
             child: Consumer(
               builder: (_, WidgetRef ref, __) {
@@ -72,12 +72,12 @@ class ActionBar extends StatelessWidget {
                     nowPlaying ? 'assets/stop.svg' : 'assets/play.svg',
                     width: 34,
                     height: 34,
-                    colorFilter: ColorFilter.mode(
+                    colorFilter: const ColorFilter.mode(
                       Colors.white,
                       BlendMode.srcIn,
                     ),
                   ),
-                  label: Text(
+                  label: const Text(
                     '',
                     style: TextStyle(
                       fontSize: 14,
@@ -88,13 +88,13 @@ class ActionBar extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   ),
                 );
               },
             ),
           ),
-          SizedBox(width: 1),
+          const SizedBox(width: 1),
           Expanded(
             child: ElevatedButton.icon(
               onPressed: () {
@@ -104,7 +104,7 @@ class ActionBar extends StatelessWidget {
                 'assets/next.svg',
                 width: 34,
                 height: 34,
-                colorFilter: ColorFilter.mode(
+                colorFilter: const ColorFilter.mode(
                   Colors.white,
                   BlendMode.srcIn,
                 ),
@@ -119,7 +119,7 @@ class ActionBar extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 shadowColor: Colors.transparent,
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 elevation: 0,
               ),
             ),

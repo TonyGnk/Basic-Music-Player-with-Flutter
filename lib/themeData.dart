@@ -7,29 +7,29 @@ import 'package:flutter/material.dart';
 
 class MyThemeData {
   //Δημιουργία μεταβλητών για τα χρώματα
-  static Color _lightPrimary = Color.fromARGB(255, 255, 255, 255);
-  static Color _lightOnPrimary = Color(0xff000000);
-  static Color _lightBackground = Color.fromARGB(255, 243, 243, 243);
-  static Color _lightOnBackground = Color(0xff000000);
-  static Color _lightSurface = Color.fromARGB(255, 58, 85, 145);
-  static Color _lightOnSurface = Color(0xff000000);
-  static Color _lightError = Color.fromARGB(255, 58, 85, 145);
-  static Color _lightOnError = Color.fromARGB(255, 164, 170, 188);
+  static const Color _lightPrimary = Color.fromARGB(255, 255, 255, 255);
+  static const Color _lightOnPrimary = Color(0xff000000);
+  static const Color _lightBackground = Color.fromARGB(255, 243, 243, 243);
+  static const Color _lightOnBackground = Color(0xff000000);
+  static const Color _lightSurface = Color.fromARGB(255, 58, 85, 145);
+  static const Color _lightOnSurface = Color(0xff000000);
+  static const Color _lightError = Color.fromARGB(255, 58, 85, 145);
+  static const Color _lightOnError = Color.fromARGB(255, 164, 170, 188);
 
-  static Color _darkPrimary = Color.fromARGB(255, 37, 37, 37);
-  static Color _darkOnPrimary = Color(0xffffffff);
-  static Color _darkBackground = Color.fromARGB(255, 0, 0, 0);
-  static Color _darkOnBackground = Color(0xffffffff);
-  static Color _darkSurface = Color.fromARGB(255, 35, 51, 87);
-  static Color _darkOnSurface = Color(0xffffffff);
-  static Color _darkError = Color.fromARGB(255, 58, 85, 145);
-  static Color _darkOnError = Color.fromARGB(255, 68, 71, 79);
+  static const Color _darkPrimary = Color.fromARGB(255, 37, 37, 37);
+  static const Color _darkOnPrimary = Color(0xffffffff);
+  static const Color _darkBackground = Color.fromARGB(255, 0, 0, 0);
+  static const Color _darkOnBackground = Color(0xffffffff);
+  static const Color _darkSurface = Color.fromARGB(255, 35, 51, 87);
+  static const Color _darkOnSurface = Color(0xffffffff);
+  static const Color _darkError = Color.fromARGB(255, 58, 85, 145);
+  static const Color _darkOnError = Color.fromARGB(255, 68, 71, 79);
 
   //Δημιουργία μεθόδου για το Light Theme
   static final ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: _lightBackground,
     useMaterial3: true,
-    colorScheme: ColorScheme.light(
+    colorScheme: const ColorScheme.light(
       primary: _lightPrimary,
       onPrimary: _lightOnPrimary,
       background: _lightBackground,
@@ -45,7 +45,7 @@ class MyThemeData {
   static final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: _darkBackground,
-    colorScheme: ColorScheme.dark(
+    colorScheme: const ColorScheme.dark(
       primary: _darkPrimary,
       onPrimary: _darkOnPrimary,
       background: _darkBackground,

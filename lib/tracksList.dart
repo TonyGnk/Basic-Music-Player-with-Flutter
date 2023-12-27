@@ -7,7 +7,7 @@ import 'main.dart';
 class TracksList extends StatelessWidget {
   final Player playerz;
 
-  TracksList({required this.playerz});
+  const TracksList({super.key, required this.playerz});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class TracksList extends StatelessWidget {
           loading: () => const CircularProgressIndicator(),
           error: (err, stack) => Text('Error: $err'),
           data: (audioFiles) {
-            return Container(
+            return SizedBox(
               height: MediaQuery.of(context).size.height,
               child: ListView.builder(
                 itemCount: audioFiles.length,
@@ -35,23 +35,23 @@ class TracksList extends StatelessWidget {
                           ref.read(playingStateProvider.notifier).state = true;
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(0, 255, 255, 255),
+                          backgroundColor: const Color.fromARGB(0, 255, 255, 255),
                           foregroundColor: Colors.white,
                           shadowColor: const Color.fromARGB(0, 255, 255, 255),
-                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                           elevation: 0,
                         ),
                         child: Row(
                           children: [
                             //give the context to the widget
                             musicIcon(context),
-                            SizedBox(width: 1),
+                            const SizedBox(width: 1),
                             Expanded(
                               child: Container(
                                 height: 70,
-                                padding: EdgeInsets.fromLTRB(0, 2, 0, 2),
+                                padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
                                 decoration: index != audioFiles.length - 1
-                                    ? BoxDecoration(
+                                    ? const BoxDecoration(
                                         border: Border(
                                           bottom: BorderSide(
                                             width: 1.0,
@@ -111,13 +111,13 @@ class TracksList extends StatelessWidget {
     return Container(
       height: 70,
       width: 70,
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.onError,
-          borderRadius: BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(18),
           ),
         ),
@@ -126,7 +126,7 @@ class TracksList extends StatelessWidget {
             'assets/music.svg',
             width: 20,
             height: 20,
-            colorFilter: ColorFilter.mode(
+            colorFilter: const ColorFilter.mode(
               Colors.white,
               BlendMode.srcIn,
             ),

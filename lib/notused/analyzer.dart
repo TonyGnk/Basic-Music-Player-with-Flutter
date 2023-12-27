@@ -6,9 +6,9 @@ class AudioAnalyzer {
     final file = File(filePath);
     final bytes = await file.readAsBytes();
 
-    final sampleRate =
+    const sampleRate =
         44100; // Τυπικός ρυθμός δειγματοληψίας για ήχο CD quality
-    final secondsPerChunk = 1.0; // Διάρκεια ανάλυσης ανά δευτερόλεπτο
+    const secondsPerChunk = 1.0; // Διάρκεια ανάλυσης ανά δευτερόλεπτο
     final chunkSize = (sampleRate * secondsPerChunk).round();
 
     final numChunks = (bytes.length / chunkSize).ceil();

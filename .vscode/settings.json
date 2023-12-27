@@ -17,6 +17,6 @@
 		"**/linux": true,
 		"**/android": true,
 		//"**/.vscode": true,
-		"**/analysis_options.yaml": false
+		"**/analysis_options.yaml": true
 	}
 }

@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'main.dart';
 
 class TopBar extends StatelessWidget {
+  const TopBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer(
@@ -12,9 +14,9 @@ class TopBar extends StatelessWidget {
         final settingsOpened = ref.watch(settingsState);
         return settingsOpened
             ? AnimatedContainer(
-                duration: Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 200),
                 curve: Curves.easeInOut,
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                 child: Column(
                   children: [
                     Text(
@@ -24,7 +26,7 @@ class TopBar extends StatelessWidget {
                         fontSize: 20,
                       ),
                     ),
-                    SizedBox(height: 60),
+                    const SizedBox(height: 60),
                     darkThemeSwitcher(context),
                   ],
                 ),
@@ -65,8 +67,8 @@ class TopBar extends StatelessWidget {
               },
               activeColor: Theme.of(context).colorScheme.primary,
               activeTrackColor: Theme.of(context).colorScheme.error,
-              inactiveThumbColor: Color.fromARGB(255, 89, 89, 89),
-              inactiveTrackColor: Color.fromARGB(255, 231, 225, 243),
+              inactiveThumbColor: const Color.fromARGB(255, 89, 89, 89),
+              inactiveTrackColor: const Color.fromARGB(255, 231, 225, 243),
             ),
           ],
         );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Fab extends StatefulWidget {
+  const Fab({super.key});
+
   @override
   _FabState createState() => _FabState();
 }
@@ -39,7 +41,7 @@ class _FabState extends State<Fab> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color.fromARGB(255, 21, 71, 107),
       ),
       //padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
@@ -48,7 +50,7 @@ class _FabState extends State<Fab> {
           Container(
             width: double.infinity,
             height: 100,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color.fromARGB(255, 21, 71, 107),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(0),
@@ -57,7 +59,7 @@ class _FabState extends State<Fab> {
                 topRight: Radius.circular(0),
               ),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,14 +75,14 @@ class _FabState extends State<Fab> {
                   child: Container(
                     width: double.infinity,
                     height: 40,
-                    color: Color.fromARGB(0, 116, 54, 158),
+                    color: const Color.fromARGB(0, 116, 54, 158),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start, //Set to TOP
                       children: [
                         Container(
                           width: 50,
                           height: 5,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color.fromARGB(255, 240, 240, 240),
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(110),
@@ -98,11 +100,11 @@ class _FabState extends State<Fab> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(bottom: 0),
+            padding: const EdgeInsets.only(bottom: 0),
             child: Container(
               width: double.infinity,
               height: initialContainerHeight,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 21, 71, 107),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(0),
@@ -111,8 +113,8 @@ class _FabState extends State<Fab> {
                   topRight: Radius.circular(0),
                 ),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Row(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
