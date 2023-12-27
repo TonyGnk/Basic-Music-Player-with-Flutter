@@ -1,0 +1,22 @@
+{
+	"files.exclude": {
+		"**/*.tsx": true,
+		"**/*.css": true,
+		"**/ios": true,
+		"**/pubspec.lock": true,
+		"**/.metadata": true,
+		"**/.gitignore": true,
+		"**/algorithms.iml": true,
+		"**/.flutter-plugins": true,
+		"**/.flutter-plugins-dependencies": true,
+		"**/windows": true,
+		"**/macos": true,
+		"**/web": true,
+		"**/.dart_tool": true,
+		"**/.github": false,
+		"**/linux": true,
+		"**/android": true,
+		//"**/.vscode": true,
+		"**/analysis_options.yaml": false
+	}
+}
