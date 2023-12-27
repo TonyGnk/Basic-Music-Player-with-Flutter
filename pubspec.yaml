@@ -15,7 +15,10 @@ dependencies:
     permission_handler: ^10.4.3
     app_settings: ^4.1.1
     path_provider: ^2.0.5
+    universal_platform: ^1.0.0+1
     audioplayers: 5.1.0
+    adaptive_theme: ^3.4.0
+    window_manager: ^0.3.7
     file_picker: ^5.5.0
     flutter_riverpod: ^2.3.10
     shared_preferences: ^2.2.1

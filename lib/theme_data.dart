@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MyThemeData {
+class MaterialThemeData extends TotalTheme {
   static const Color _lightPrimary = Color.fromARGB(255, 255, 255, 255);
   static const Color _lightOnPrimary = Color(0xff000000);
   static const Color _lightBackground = Color.fromARGB(255, 243, 243, 243);
@@ -19,33 +19,49 @@ class MyThemeData {
   static const Color _darkError = Color.fromARGB(255, 58, 85, 145);
   static const Color _darkOnError = Color.fromARGB(255, 68, 71, 79);
 
-  static final ThemeData lightTheme = ThemeData(
-    scaffoldBackgroundColor: _lightBackground,
-    useMaterial3: true,
-    colorScheme: const ColorScheme.light(
-      primary: _lightPrimary,
-      onPrimary: _lightOnPrimary,
-      background: _lightBackground,
-      onBackground: _lightOnBackground,
-      surface: _lightSurface,
-      onSurface: _lightOnSurface,
-      error: _lightError,
-      onError: _lightOnError,
-    ),
-  );
+  @override
+  ThemeData light() => ThemeData(
+        scaffoldBackgroundColor: _lightBackground,
+        useMaterial3: true,
+        colorScheme: const ColorScheme.light(
+          primary: _lightPrimary,
+          onPrimary: _lightOnPrimary,
+          background: _lightBackground,
+          onBackground: _lightOnBackground,
+          surface: _lightSurface,
+          onSurface: _lightOnSurface,
+          error: _lightError,
+          onError: _lightOnError,
+        ),
+      );
 
-  static final ThemeData darkTheme = ThemeData(
-    useMaterial3: true,
-    scaffoldBackgroundColor: _darkBackground,
-    colorScheme: const ColorScheme.dark(
-      primary: _darkPrimary,
-      onPrimary: _darkOnPrimary,
-      background: _darkBackground,
-      onBackground: _darkOnBackground,
-      surface: _darkSurface,
-      onSurface: _darkOnSurface,
-      error: _darkError,
-      onError: _darkOnError,
-    ),
-  );
+  @override
+  ThemeData dark() => ThemeData(
+        useMaterial3: true,
+        scaffoldBackgroundColor: _darkBackground,
+        colorScheme: const ColorScheme.dark(
+          primary: _darkPrimary,
+          onPrimary: _darkOnPrimary,
+          background: _darkBackground,
+          onBackground: _darkOnBackground,
+          surface: _darkSurface,
+          onSurface: _darkOnSurface,
+          error: _darkError,
+          onError: _darkOnError,
+        ),
+      );
+
+  static ThemeData getLightTheme() => MaterialThemeData().light();
+  static ThemeData getDarkTheme() => MaterialThemeData().dark();
+}
+
+class TotalTheme {
+  ThemeData light() => ThemeData(
+        brightness: Brightness.light,
+        useMaterial3: true,
+      );
+  ThemeData dark() => ThemeData(
+        brightness: Brightness.dark,
+        useMaterial3: true,
+      );
 }

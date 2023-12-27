@@ -83,19 +83,3 @@ class TopBar extends StatelessWidget {
     }
   }
 }
-
-
-
-
-// Expanded(
-//               child: Container(
-//                 width: 150,
-//                 height: 40,
-//                 alignment: Alignment.centerRight,
-//                 child: CustomIconButton(
-//                   onPressed: () {
-//                     AppSettings.openAppSettings();
-//                   },
-//                   icon: SvgPicture.asset('assets/info.svg'),
-//                 ),
-//               ),
