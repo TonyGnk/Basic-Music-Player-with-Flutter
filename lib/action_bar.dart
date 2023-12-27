@@ -23,16 +23,11 @@ class ActionBar extends StatelessWidget {
                   onPressed: () {
                     ref.read(darkStateProvider.notifier).state =
                         !ref.watch(darkStateProvider);
-                    print(ref.watch(darkStateProvider));
                   },
-                  icon: SvgPicture.asset(
-                    'assets/previous.svg',
-                    width: 34,
-                    height: 34,
-                    colorFilter: const ColorFilter.mode(
-                      Colors.white,
-                      BlendMode.srcIn,
-                    ),
+                  icon: const Icon(
+                    Icons.skip_previous_rounded,
+                    color: Colors.white,
+                    size: 32,
                   ),
                   label: const Text(
                     '',
@@ -68,14 +63,10 @@ class ActionBar extends StatelessWidget {
                       ref.read(playingStateProvider.notifier).state = true;
                     }
                   },
-                  icon: SvgPicture.asset(
-                    nowPlaying ? 'assets/stop.svg' : 'assets/play.svg',
-                    width: 34,
-                    height: 34,
-                    colorFilter: const ColorFilter.mode(
-                      Colors.white,
-                      BlendMode.srcIn,
-                    ),
+                  icon: Icon(
+                    nowPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                    color: Colors.white,
+                    size: 32,
                   ),
                   label: const Text(
                     '',
@@ -100,14 +91,10 @@ class ActionBar extends StatelessWidget {
               onPressed: () {
                 player.dispose();
               },
-              icon: SvgPicture.asset(
-                'assets/next.svg',
-                width: 34,
-                height: 34,
-                colorFilter: const ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
-                ),
+              icon: const Icon(
+                Icons.skip_next_rounded,
+                color: Colors.white,
+                size: 32,
               ),
               label: Text(
                 '',

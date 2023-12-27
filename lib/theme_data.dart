@@ -26,6 +26,8 @@ class MaterialThemeData extends TotalTheme {
         colorScheme: const ColorScheme.light(
           primary: _lightPrimary,
           onPrimary: _lightOnPrimary,
+          secondary: Color.fromARGB(255, 58, 85, 145),
+          onSecondary: Color.fromARGB(255, 255, 255, 255),
           background: _lightBackground,
           onBackground: _lightOnBackground,
           surface: _lightSurface,
@@ -42,6 +44,8 @@ class MaterialThemeData extends TotalTheme {
         colorScheme: const ColorScheme.dark(
           primary: _darkPrimary,
           onPrimary: _darkOnPrimary,
+          secondary: Color.fromARGB(255, 58, 85, 145),
+          onSecondary: Color.fromARGB(255, 255, 255, 255),
           background: _darkBackground,
           onBackground: _darkOnBackground,
           surface: _darkSurface,
