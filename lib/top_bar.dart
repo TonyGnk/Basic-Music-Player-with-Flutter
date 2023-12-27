@@ -28,7 +28,7 @@ class TopBar extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 60),
-                    darkThemeSwitcher(context),
+                    segmentedSpeed(),
                   ],
                 ),
               )
@@ -41,41 +41,6 @@ class TopBar extends StatelessWidget {
                   ),
                 ),
               );
-      },
-    );
-  }
-
-  Widget darkThemeSwitcher(BuildContext context) {
-    return Consumer(
-      builder: (_, WidgetRef ref, __) {
-        final darkState = ref.watch(darkStateProvider);
-        final pref = ref.watch(prefs);
-        return segmentedSpeed();
-
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-
-        // Text(
-        //   "Dark Theme",
-        //   style: TextStyle(
-        //     color: Theme.of(context).colorScheme.onPrimary,
-        //     fontSize: 16,
-        //   ),
-        // ),
-        // Switch(
-        //   value: darkState,
-        //   onChanged: (value) {
-        //     ref.read(darkStateProvider.notifier).state = value;
-        //     _saveDarkThemePreference(value, pref);
-        //   },
-        //   activeColor: Theme.of(context).colorScheme.primary,
-        //   activeTrackColor: Theme.of(context).colorScheme.error,
-        //   inactiveThumbColor: const Color.fromARGB(255, 89, 89, 89),
-        //   inactiveTrackColor: const Color.fromARGB(255, 225, 232, 243),
-        // ),
-        //   ],
-        // );
       },
     );
   }

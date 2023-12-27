@@ -11,16 +11,13 @@ class MyApp extends ConsumerWidget {
     //final theme = ref.watch(themeProvider);
     final settingsOpened = ref.watch(settingsState);
     return Center(
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: 460),
-        margin: const EdgeInsets.all(0),
-        padding: settingsOpened
-            ? const EdgeInsets.fromLTRB(0, 30, 0, 0)
-            : const EdgeInsets.fromLTRB(10, 30, 10, 10),
-        child: Column(
-          children: [Screen()],
-        ),
-      ),
+      child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          constraints: const BoxConstraints(maxWidth: 460),
+          padding: settingsOpened
+              ? const EdgeInsets.fromLTRB(0, 30, 0, 0)
+              : const EdgeInsets.fromLTRB(10, 30, 10, 10),
+          child: Screen()),
     );
   }
 }
