@@ -20,7 +20,7 @@ class TopBar extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      "Ρυθμίσεις",
+                      "Settings",
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: 20,
@@ -47,20 +47,20 @@ class TopBar extends StatelessWidget {
   Widget darkThemeSwitcher(BuildContext context) {
     return Consumer(
       builder: (_, WidgetRef ref, __) {
-        final darkstate = ref.watch(darkStateProvider);
+        final darkState = ref.watch(darkStateProvider);
         final pref = ref.watch(prefs);
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Σκοτεινό θέμα",
+              "Dark Theme",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
                 fontSize: 16,
               ),
             ),
             Switch(
-              value: darkstate,
+              value: darkState,
               onChanged: (value) {
                 ref.read(darkStateProvider.notifier).state = value;
                 _saveDarkThemePreference(value, pref);
@@ -68,7 +68,7 @@ class TopBar extends StatelessWidget {
               activeColor: Theme.of(context).colorScheme.primary,
               activeTrackColor: Theme.of(context).colorScheme.error,
               inactiveThumbColor: const Color.fromARGB(255, 89, 89, 89),
-              inactiveTrackColor: const Color.fromARGB(255, 231, 225, 243),
+              inactiveTrackColor: const Color.fromARGB(255, 225, 232, 243),
             ),
           ],
         );

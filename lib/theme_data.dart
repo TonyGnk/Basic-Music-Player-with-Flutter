@@ -1,12 +1,6 @@
-//Περιγραφή εφαρμογής: Αυτή είναι μια εφαρμογή αναπαραγωγής μουσικής. Ο χρήστης μπορεί να ακούσει τα τραγούδια που έχει στην συσκευή του. Μπορεί να πατήσει το κουμπί play για να ακούσει το τραγούδι που είναι επιλεγμένο. Μπορεί να πατήσει το κουμπί pause για να σταματήσει το τραγούδι που παίζει.
-//Θέλω να ενσωματώσω στην εφαρμογή dark theme και Light theme. Θα δημιουργήσω μια κλάση ThemeData όπου θα ορίζω τα χρώματα για το Light Theme και το Dark Theme. Μετά θα φτιάξω ένα ThemeProvider στην Main που ανάλογα τις ρυθμίσεις της συσκευής θα επιστρέφει το Light Theme ή το Dark Theme.
-
-//Εδώ φτιάχνω την κλάση ThemeData
-
 import 'package:flutter/material.dart';
 
 class MyThemeData {
-  //Δημιουργία μεταβλητών για τα χρώματα
   static const Color _lightPrimary = Color.fromARGB(255, 255, 255, 255);
   static const Color _lightOnPrimary = Color(0xff000000);
   static const Color _lightBackground = Color.fromARGB(255, 243, 243, 243);
@@ -25,7 +19,6 @@ class MyThemeData {
   static const Color _darkError = Color.fromARGB(255, 58, 85, 145);
   static const Color _darkOnError = Color.fromARGB(255, 68, 71, 79);
 
-  //Δημιουργία μεθόδου για το Light Theme
   static final ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: _lightBackground,
     useMaterial3: true,
@@ -41,7 +34,6 @@ class MyThemeData {
     ),
   );
 
-  //Δημιουργία μεθόδου για το Dark Theme
   static final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: _darkBackground,
@@ -57,11 +49,3 @@ class MyThemeData {
     ),
   );
 }
-
-//ΟΔΗΓΟΣ ΧΡΗΣΗΣ ΧΡΩΜΑΤΩΝ
-//Το primary είναι ένα χρώμα που χρησιμοποιείτε για το background της εφαρμογής
-//Το onPrimary είναι ένα χρώμα που χρησιμοποιείτε για το κείμενο που βρίσκεται πάνω από το primary χρώμα
-//Το background είναι ένα χρώμα που χρησιμοποιείτε για το background των widgets
-//Το onBackground είναι ένα χρώμα που χρησιμοποιείτε για το κείμενο που βρίσκεται πάνω από το background χρώμα
-//Το surface είναι ένα χρώμα που χρησιμοποιείτε για το background των widgets
-//Το onSurface είναι ένα χρώμα που χρησιμοποιείτε για το κείμενο που βρίσκεται πάνω από το surface χρώμα
