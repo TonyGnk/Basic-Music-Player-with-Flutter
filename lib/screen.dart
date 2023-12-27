@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:musicgnk/tab_part.dart';
 import 'package:musicgnk/top_bar.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:universal_platform/universal_platform.dart';
 import 'main.dart';
 import 'tracks_list.dart';
 import 'player.dart';
@@ -48,7 +49,9 @@ class _NewState extends ConsumerState<Screen> {
       });
 
   void requestPermissions() async {
-    if (await Permission.storage.request().isGranted) {
+    if (UniversalPlatform.isWeb) {
+      return;
+    } else if (await Permission.storage.request().isGranted) {
       print("TRUE = await Permission.storage.request().isGranted");
     } else {
       print("FALSE = await Permission.storage.request().isGranted");

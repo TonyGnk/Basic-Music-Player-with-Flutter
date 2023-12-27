@@ -33,7 +33,7 @@ void main() async {
 
 AdaptiveRoot buildApp({AdaptiveThemeMode? savedThemeMode}) => AdaptiveRoot(
       savedThemeMode: savedThemeMode,
-      appTitle: 'Node Odyssey',
+      appTitle: 'Flutter Audio Player',
       debugShowFloatingThemeButton: false,
     );
 
@@ -67,7 +67,6 @@ final darkStateProvider = StateProvider<bool>((ref) {
   );
 });
 
-//Δημιουργία ενός StateProvider που θα αποθηκεύει τις ρυθμίσεις της εφαρμογής
 final prefs = FutureProvider<SharedPreferences>((ref) async {
   final sharedPreferences = await SharedPreferences.getInstance();
   return sharedPreferences;
@@ -78,11 +77,11 @@ final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
     Directory directory = Directory.current;
     List<FileSystemEntity> files = [];
 
-    if (Platform.isWindows) {
+    if (UniversalPlatform.isWindows) {
       directory =
           Directory('C:/Users/${Platform.environment['USERNAME']}/Music');
       files = directory.listSync();
-    } else if (Platform.isAndroid) {
+    } else if (UniversalPlatform.isAndroid) {
       directory = Directory('/storage/emulated/0/Music');
       files = directory.listSync();
     }
@@ -95,6 +94,12 @@ final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
         .toList();
 
     return audioFiles;
+  } else if (UniversalPlatform.isWeb) {
+    //If the platform is web, we can't use the local audio files. We return the preloaded audio files inside the file assets/Web Audio Files and we load only the track titanium.mp3
+    return [
+      File('assets/Web Audio Files/titanium.mp3'),
+      File('assets/Web Audio Files/glossy.mp3'),
+    ];
   }
   return <FileSystemEntity>[];
 });
