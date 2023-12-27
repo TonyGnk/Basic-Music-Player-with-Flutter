@@ -1,24 +1,20 @@
 import 'dart:io';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:musicgnk/adaptive_root.dart';
-import 'package:musicgnk/theme_data.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:window_manager/window_manager.dart';
-import 'screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (!UniversalPlatform.isWeb) {
     await windowManager.ensureInitialized();
     WindowOptions windowOptions = const WindowOptions(
-      //     fullScreen: false,
-      title: 'Node Odyssey',
-      size: Size(360, 700), //1050-660
+      title: 'Flutter Audio Player',
+      size: Size(360, 700),
       backgroundColor: Colors.transparent,
       titleBarStyle: TitleBarStyle.normal,
     );
