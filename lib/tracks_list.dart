@@ -80,7 +80,7 @@ class TracksList extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      "Άγνωστο",
+                                      "Unknown",
                                       style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w500,

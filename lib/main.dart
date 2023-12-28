@@ -73,7 +73,13 @@ final prefs = FutureProvider<SharedPreferences>((ref) async {
 });
 
 final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
-  if (await Permission.storage.request().isGranted) {
+  if (UniversalPlatform.isWeb) {
+    return [
+      File('assets/Web Audio Files/Titanium.mp3'),
+      File('assets/Web Audio Files/Glossy.mp3'),
+      File('assets/Web Audio Files/Lofi Chill.mp3'),
+    ];
+  } else if (await Permission.storage.request().isGranted) {
     Directory directory = Directory.current;
     List<FileSystemEntity> files = [];
 
@@ -94,12 +100,6 @@ final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
         .toList();
 
     return audioFiles;
-  } else if (UniversalPlatform.isWeb) {
-    //If the platform is web, we can't use the local audio files. We return the preloaded audio files inside the file assets/Web Audio Files and we load only the track titanium.mp3
-    return [
-      File('assets/Web Audio Files/titanium.mp3'),
-      File('assets/Web Audio Files/glossy.mp3'),
-    ];
   }
   return <FileSystemEntity>[];
 });
