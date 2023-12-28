@@ -37,7 +37,8 @@ class TopBar extends StatelessWidget {
                   "Music",
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onPrimary,
-                    fontSize: 20,
+                    fontSize: 22,
+                    fontFamily: "Roboto",
                   ),
                 ),
               );

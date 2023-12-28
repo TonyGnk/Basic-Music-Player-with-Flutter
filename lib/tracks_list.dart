@@ -14,7 +14,6 @@ class TracksList extends StatelessWidget {
       builder: (context, ref, _) {
         final audioFilesAsync = ref.watch(audioFilesProvider);
         final myPlayer = ref.watch(playerProvider);
-        final currentIndex = ref.watch(playingIndex);
         return audioFilesAsync.when(
           loading: () => const CircularProgressIndicator(),
           error: (err, stack) => Text('Error: $err'),
@@ -36,16 +35,6 @@ class TracksList extends StatelessWidget {
                         child: Container(
                           height: 70,
                           padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
-                          decoration: index != audioFiles.length - 1
-                              ? const BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(
-                                      width: 1.0,
-                                      color: Color.fromARGB(255, 232, 232, 232),
-                                    ),
-                                  ),
-                                )
-                              : null,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,6 +45,7 @@ class TracksList extends StatelessWidget {
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
+                                  fontFamily: "Roboto",
                                 ),
                               ),
                               const Text(
@@ -63,6 +53,7 @@ class TracksList extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.w500,
+                                  fontFamily: "Roboto",
                                 ),
                               ),
                             ],
@@ -90,27 +81,32 @@ class TracksList extends StatelessWidget {
           final myPlayer = ref.watch(playerProvider);
           final currentIndex = ref.watch(playingIndex);
 
-          return MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: Material(
-              clipBehavior: Clip.antiAlias,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(22),
+          return Column(
+            children: [
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: Material(
+                  clipBehavior: Clip.antiAlias,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(22),
+                    ),
+                  ),
+                  color: currentIndex == index
+                      ? Colors.grey.withOpacity(0.1)
+                      : Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      myPlayer.play(audioFiles[index].path);
+                      ref.read(playingIndex.notifier).state = index;
+                      ref.read(playingStateProvider.notifier).state = true;
+                    },
+                    child: child,
+                  ),
                 ),
               ),
-              color: currentIndex == index
-                  ? Colors.grey.withOpacity(0.1)
-                  : Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  myPlayer.play(audioFiles[index].path);
-                  ref.read(playingIndex.notifier).state = index;
-                  ref.read(playingStateProvider.notifier).state = true;
-                },
-                child: child,
-              ),
-            ),
+              const SizedBox(height: 6)
+            ],
           );
         },
       );

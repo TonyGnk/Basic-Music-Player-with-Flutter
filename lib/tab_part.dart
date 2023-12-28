@@ -6,7 +6,7 @@ class TabPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      height: 60,
+      height: 50,
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
@@ -18,7 +18,8 @@ class TabPart extends StatelessWidget {
           "Tracks",
           style: TextStyle(
             color: Theme.of(context).colorScheme.onPrimary,
-            fontSize: 20,
+            fontSize: 18,
+            fontFamily: "Roboto",
           ),
         ),
       ),

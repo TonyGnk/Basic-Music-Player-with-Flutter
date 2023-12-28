@@ -58,6 +58,7 @@ final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
       File('assets/Web Audio Files/Glossy.mp3'),
       File('assets/Web Audio Files/Lofi Chill.mp3'),
       File('assets/Web Audio Files/Star Wars Style.mp3'),
+      File('assets/Web Audio Files/Awaken.mp3'),
     ];
 
     ref.read(listFileEntityProvider.notifier).state = audioFiles;
