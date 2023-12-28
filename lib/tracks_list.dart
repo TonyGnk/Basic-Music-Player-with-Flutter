@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:musicgnk/screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'main.dart';
 
 class TracksList extends StatelessWidget {
@@ -60,6 +61,7 @@ class TracksList extends StatelessWidget {
                           ),
                         ),
                       ),
+                      infoIcon(index, context),
                     ],
                   ),
                 );
@@ -140,5 +142,176 @@ class TracksList extends StatelessWidget {
   }
 }
 
+infoIcon(int index, BuildContext context) => IconButton(
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("CopyRight"),
+              content: textList(context)[index],
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: simpleText(context, 'Close'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+      icon: const Icon(
+        Icons.info_outline_rounded,
+        color: Colors.white,
+        size: 28,
+      ),
+    );
+
 final playingIndex = StateProvider<int>((ref) => -1);
-final totalSongsProvider = StateProvider<int>((ref) => -1);
+final totalSongsProvider = StateProvider<int>((ref) => 5);
+
+//list of text
+List<Row> textList(BuildContext context) => [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          simpleText(context, "Music by "),
+          linkText(
+            context,
+            "Alisia",
+            Uri.parse(
+                "https://pixabay.com/users/alisiabeats-39461785/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=170190"),
+          ),
+          simpleText(context, " from "),
+          linkText(
+            context,
+            "Pixabay",
+            Uri.parse(
+                "https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=170190"),
+          ),
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          simpleText(context, "Music by "),
+          linkText(
+            context,
+            "Yrii Semchyshyn",
+            Uri.parse(
+                "https://pixabay.com/users/coma-media-24399569/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=168156"),
+          ),
+          simpleText(context, " from "),
+          linkText(
+            context,
+            "Pixabay",
+            Uri.parse(
+                "https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=168156"),
+          ),
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          simpleText(context, "Music by "),
+          linkText(
+            context,
+            "Bohdan Kuzmin",
+            Uri.parse(
+              "https://pixabay.com/users/bodleasons-28047609/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=159456",
+            ),
+          ),
+          simpleText(context, " from "),
+          linkText(
+            context,
+            "Pixabay",
+            Uri.parse(
+              "https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=159456",
+            ),
+          ),
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          simpleText(context, "Music by "),
+          linkText(
+            context,
+            "Luis Humanoide",
+            Uri.parse(
+              "https://pixabay.com/users/humanoide_media-12661853/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=165111",
+            ),
+          ),
+          simpleText(context, " from "),
+          linkText(
+            context,
+            "Pixabay",
+            Uri.parse(
+              "https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=165111",
+            ),
+          ),
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          simpleText(context, "Music by "),
+          linkText(
+            context,
+            "Yevhen Onoychenko",
+            Uri.parse(
+              "https://pixabay.com/users/onoychenkomusic-24430395/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=136824",
+            ),
+          ),
+          simpleText(context, " from "),
+          linkText(
+            context,
+            "Pixabay",
+            Uri.parse(
+              "https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=136824",
+            ),
+          ),
+        ],
+      ),
+    ];
+
+linkText(
+  BuildContext context,
+  String text,
+  Uri uri,
+) =>
+    TextButton(
+      onPressed: () async {
+        if (await canLaunchUrl(uri)) {
+          await launchUrl(uri);
+        } else {
+          throw 'Could not launch $uri';
+        }
+      },
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+        //Remove the minimum size of the button
+        minimumSize: MaterialStateProperty.all<Size>(Size.zero),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          fontFamily: "Roboto",
+          color: Colors.blueAccent,
+        ),
+      ),
+    );
+
+simpleText(BuildContext context, String text) => Text(
+      text,
+      style: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        fontFamily: "Roboto",
+        color: Theme.of(context).colorScheme.onPrimary,
+      ),
+    );

@@ -47,12 +47,18 @@ final settingsState = StateProvider<bool>((ref) {
 });
 
 final listFileEntityProvider = StateProvider<List<FileSystemEntity>>((ref) {
-  return [];
+  return [
+    File('assets/Web Audio Files/Titanium.mp3'),
+    File('assets/Web Audio Files/Glossy.mp3'),
+    File('assets/Web Audio Files/Lofi Chill.mp3'),
+    File('assets/Web Audio Files/Star Wars Style.mp3'),
+    File('assets/Web Audio Files/Awaken.mp3'),
+  ];
 });
 
 final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
   if (UniversalPlatform.isWeb) {
-    ref.read(totalSongsProvider.notifier).state = 4;
+    //ref.read(totalSongsProvider.notifier).state = 4;
     final audioFiles = [
       File('assets/Web Audio Files/Titanium.mp3'),
       File('assets/Web Audio Files/Glossy.mp3'),
@@ -61,7 +67,7 @@ final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
       File('assets/Web Audio Files/Awaken.mp3'),
     ];
 
-    ref.read(listFileEntityProvider.notifier).state = audioFiles;
+    //ref.read(listFileEntityProvider.notifier).state = audioFiles;
     return audioFiles;
   } else if (await Permission.storage.request().isGranted) {
     Directory directory = Directory.current;
