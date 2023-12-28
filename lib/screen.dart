@@ -123,7 +123,7 @@ class _NewState extends ConsumerState<Screen> {
             duration: const Duration(milliseconds: 300),
             height: 50,
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: ActionBar(),
+            child: const ActionBar(),
           )
         ],
       );
@@ -143,7 +143,7 @@ class _NewState extends ConsumerState<Screen> {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: TracksList(),
+                child: const TracksList(),
               ),
             ),
           ],

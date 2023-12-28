@@ -79,6 +79,7 @@ final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
       File('assets/Web Audio Files/Titanium.mp3'),
       File('assets/Web Audio Files/Glossy.mp3'),
       File('assets/Web Audio Files/Lofi Chill.mp3'),
+      File('assets/Web Audio Files/Star Wars Style.mp3'),
     ];
   } else if (await Permission.storage.request().isGranted) {
     Directory directory = Directory.current;
