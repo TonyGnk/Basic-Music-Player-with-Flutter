@@ -11,12 +11,13 @@ import 'tracks_list.dart';
 import 'player.dart';
 import 'action_bar.dart';
 
-// ignore: must_be_immutable
-class Screen extends ConsumerStatefulWidget {
-  Screen({super.key});
-  final player = Player();
+//Player Provider
+final playerProvider = StateProvider<Player>((ref) {
+  return Player();
+});
 
-  final primeMs = 300;
+class Screen extends ConsumerStatefulWidget {
+  const Screen({super.key});
 
   @override
   ConsumerState<Screen> createState() => _NewState();
@@ -33,17 +34,26 @@ class _NewState extends ConsumerState<Screen> {
   Widget build(BuildContext context) =>
       Consumer(builder: (_, WidgetRef ref, __) {
         final settingsOpened = ref.watch(settingsState);
-        // ignore: deprecated_member_use
-        return WillPopScope(
-          onWillPop: () async {
-            ref.read(settingsState.notifier).state = false;
-            if (settingsOpened) {
-              return false; // Prevent the back navigation
-            } else {
-              return true; // Allow the back navigation
-            }
-          },
-          child: column(context, ref, settingsOpened),
+        return Center(
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            constraints: const BoxConstraints(maxWidth: 460),
+            padding: settingsOpened
+                ? const EdgeInsets.fromLTRB(0, 30, 0, 0)
+                : const EdgeInsets.fromLTRB(10, 30, 10, 10),
+            // ignore: deprecated_member_use
+            child: WillPopScope(
+              onWillPop: () async {
+                ref.read(settingsState.notifier).state = false;
+                if (settingsOpened) {
+                  return false; // Prevent the back navigation
+                } else {
+                  return true; // Allow the back navigation
+                }
+              },
+              child: column(context, ref, settingsOpened),
+            ),
+          ),
         );
       });
 
@@ -57,7 +67,12 @@ class _NewState extends ConsumerState<Screen> {
     }
   }
 
-  column(BuildContext context, WidgetRef ref, bool settingsOpened) => Column(
+  column(
+    BuildContext context,
+    WidgetRef ref,
+    bool settingsOpened,
+  ) =>
+      Column(
         children: [
           MouseRegion(
             cursor: SystemMouseCursors.click,
@@ -92,9 +107,7 @@ class _NewState extends ConsumerState<Screen> {
             duration: const Duration(milliseconds: 300),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(40),
-              ),
+              borderRadius: const BorderRadius.all(Radius.circular(40)),
             ),
             child: column2(),
           ),
@@ -104,47 +117,36 @@ class _NewState extends ConsumerState<Screen> {
   column2() => Column(
         children: [
           Expanded(
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: widget.primeMs),
-              curve: Curves.easeInOut,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(40),
-                ),
-              ),
-              child: Column(
-                children: [
-                  AnimatedContainer(
-                    height: 60,
-                    duration: Duration(milliseconds: widget.primeMs),
-                    curve: Curves.easeInOut,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40)),
-                    ),
-                    child: const TabPart(),
-                  ),
-                  Expanded(
-                    child: AnimatedContainer(
-                      duration: Duration(milliseconds: widget.primeMs),
-                      curve: Curves.easeInOut,
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: TracksList(playerz: widget.player),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            child: container(context),
           ),
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             height: 50,
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: ActionBar(player: widget.player),
+            child: ActionBar(),
           )
         ],
+      );
+
+  container(BuildContext context) => AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(40),
+          ),
+        ),
+        child: Column(
+          children: [
+            const TabPart(),
+            Expanded(
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: TracksList(),
+              ),
+            ),
+          ],
+        ),
       );
 }

@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:musicgnk/player.dart';
+import 'package:musicgnk/screen.dart';
 import 'main.dart';
 
 class TracksList extends StatelessWidget {
-  final Player playerz;
-
-  const TracksList({super.key, required this.playerz});
+  const TracksList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
         final audioFilesAsync = ref.watch(audioFilesProvider);
+        final myPlayer = ref.watch(playerProvider);
         return audioFilesAsync.when(
           loading: () => const CircularProgressIndicator(),
           error: (err, stack) => Text('Error: $err'),
@@ -24,13 +22,13 @@ class TracksList extends StatelessWidget {
                 itemCount: audioFiles.length,
                 itemBuilder: (context, index) {
                   if (index == 0) {
-                    playerz.setLastSong(audioFiles[index].path);
+                    myPlayer.setLastSong(audioFiles[index].path);
                   }
                   return Consumer(
                     builder: (_, WidgetRef ref, __) {
                       return ElevatedButton(
                         onPressed: () {
-                          playerz.play(audioFiles[index].path);
+                          myPlayer.play(audioFiles[index].path);
                           print("Pressed");
                           ref.read(playingStateProvider.notifier).state = true;
                         },
@@ -122,15 +120,11 @@ class TracksList extends StatelessWidget {
             Radius.circular(18),
           ),
         ),
-        child: Center(
-          child: SvgPicture.asset(
-            'assets/music.svg',
-            width: 20,
-            height: 20,
-            colorFilter: const ColorFilter.mode(
-              Colors.white,
-              BlendMode.srcIn,
-            ),
+        child: const Center(
+          child: Icon(
+            Icons.music_note_rounded,
+            size: 26,
+            color: Colors.white,
           ),
         ),
       ),

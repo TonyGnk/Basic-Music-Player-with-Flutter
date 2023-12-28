@@ -15,6 +15,7 @@ void main() async {
     WindowOptions windowOptions = const WindowOptions(
       title: 'Flutter Audio Player',
       size: Size(360, 700),
+      alwaysOnTop: true,
       backgroundColor: Colors.transparent,
       titleBarStyle: TitleBarStyle.normal,
     );
@@ -58,7 +59,7 @@ final darkStateProvider = StateProvider<bool>((ref) {
     },
     loading: () {
       // Handle the case when SharedPreferences is still loading
-      return false; // You can change this to an appropriate default value
+      return false;
     },
     error: (error, stackTrace) {
       // Handle the error case

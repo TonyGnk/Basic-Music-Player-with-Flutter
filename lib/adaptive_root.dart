@@ -1,6 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:musicgnk/home.dart';
+import 'package:musicgnk/screen.dart';
 import 'package:musicgnk/theme_data.dart';
 
 class AdaptiveRoot extends StatefulWidget {
@@ -54,6 +54,6 @@ Widget rootConfig(
             body: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 color: theme.colorScheme.background,
-                child: const MyApp()),
+                child: Screen()),
           )),
     );
