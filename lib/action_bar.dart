@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:musicgnk/screen.dart';
+import 'package:musicgnk/tracks_list.dart';
 
 import 'main.dart';
 
@@ -18,14 +19,12 @@ icon(
       ),
     );
 
-// ignore: must_be_immutable
 class ActionBar extends StatelessWidget {
   const ActionBar({super.key});
 
   @override
   Widget build(BuildContext context) => Consumer(
         builder: (_, WidgetRef ref, __) {
-          final myPlayer = ref.watch(playerProvider);
           final nowPlaying = ref.watch(playingStateProvider);
           {
             return Padding(
@@ -37,7 +36,7 @@ class ActionBar extends StatelessWidget {
                     Expanded(
                       child: icon(
                         context,
-                        () {},
+                        () => previousSong(ref),
                         Icons.skip_previous_rounded,
                       ),
                     ),
@@ -47,13 +46,11 @@ class ActionBar extends StatelessWidget {
                         context,
                         () {
                           if (nowPlaying) {
-                            print("Set to pause");
-                            myPlayer.pause();
+                            ref.read(playerProvider.notifier).state.pause();
                             ref.read(playingStateProvider.notifier).state =
                                 false;
                           } else {
-                            print("Set to play");
-                            myPlayer.resume();
+                            ref.read(playerProvider.notifier).state.resume();
                             ref.read(playingStateProvider.notifier).state =
                                 true;
                           }
@@ -67,7 +64,7 @@ class ActionBar extends StatelessWidget {
                     Expanded(
                       child: icon(
                         context,
-                        () {},
+                        () => nextSong(ref),
                         Icons.skip_next_rounded,
                       ),
                     ),
@@ -78,4 +75,40 @@ class ActionBar extends StatelessWidget {
           }
         },
       );
+}
+
+//Function to go to the next song or previous song. Takes a widgetref reference and a bool to determine if it is the next song or previous song.
+void previousSong(WidgetRef ref) {
+  final currentIndex = ref.read(playingIndex.notifier).state;
+  final songs = ref.read(listFileEntityProvider.notifier).state;
+
+  //Nothing happens, the same song is played again
+  if (currentIndex == 0) {
+    const index = 0;
+    ref.read(playingIndex.notifier).state = index;
+    ref.read(playerProvider.notifier).state.play(songs[index].path);
+
+    //Play the previous song
+  } else {
+    ref.read(playingIndex.notifier).state = currentIndex - 1;
+    ref.read(playerProvider.notifier).state.play(songs[currentIndex - 1].path);
+  }
+}
+
+void nextSong(WidgetRef ref) {
+  final currentIndex = ref.read(playingIndex.notifier).state;
+  final totalSongs = ref.read(totalSongsProvider.notifier).state;
+  final songs = ref.read(listFileEntityProvider.notifier).state;
+
+  //If the song is the last one, play the first one
+  if (currentIndex == totalSongs - 1) {
+    const index = 0;
+    ref.read(playingIndex.notifier).state = index;
+    ref.read(playerProvider.notifier).state.play(songs[index].path);
+
+    //Play the next song
+  } else {
+    ref.read(playingIndex.notifier).state = currentIndex + 1;
+    ref.read(playerProvider.notifier).state.play(songs[currentIndex + 1].path);
+  }
 }

@@ -14,6 +14,7 @@ class TracksList extends StatelessWidget {
       builder: (context, ref, _) {
         final audioFilesAsync = ref.watch(audioFilesProvider);
         final myPlayer = ref.watch(playerProvider);
+        final currentIndex = ref.watch(playingIndex);
         return audioFilesAsync.when(
           loading: () => const CircularProgressIndicator(),
           error: (err, stack) => Text('Error: $err'),
@@ -93,6 +94,8 @@ class TracksList extends StatelessWidget {
       Consumer(
         builder: (context, ref, _) {
           final myPlayer = ref.watch(playerProvider);
+          final currentIndex = ref.watch(playingIndex);
+
           return MouseRegion(
             cursor: SystemMouseCursors.click,
             child: Material(
@@ -102,10 +105,13 @@ class TracksList extends StatelessWidget {
                   Radius.circular(22),
                 ),
               ),
-              color: Colors.transparent,
+              color: currentIndex == index
+                  ? Colors.grey.withOpacity(0.1)
+                  : Colors.transparent,
               child: InkWell(
                 onTap: () {
                   myPlayer.play(audioFiles[index].path);
+                  ref.read(playingIndex.notifier).state = index;
                   ref.read(playingStateProvider.notifier).state = true;
                 },
                 child: child,
@@ -143,3 +149,6 @@ class TracksList extends StatelessWidget {
     return str.substring(0, str.length - 4);
   }
 }
+
+final playingIndex = StateProvider<int>((ref) => -1);
+final totalSongsProvider = StateProvider<int>((ref) => -1);

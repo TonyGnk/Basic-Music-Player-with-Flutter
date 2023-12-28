@@ -3,8 +3,8 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:musicgnk/adaptive_root.dart';
+import 'package:musicgnk/tracks_list.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -46,14 +46,22 @@ final settingsState = StateProvider<bool>((ref) {
   return false;
 });
 
+final listFileEntityProvider = StateProvider<List<FileSystemEntity>>((ref) {
+  return [];
+});
+
 final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
   if (UniversalPlatform.isWeb) {
-    return [
+    ref.read(totalSongsProvider.notifier).state = 4;
+    final audioFiles = [
       File('assets/Web Audio Files/Titanium.mp3'),
       File('assets/Web Audio Files/Glossy.mp3'),
       File('assets/Web Audio Files/Lofi Chill.mp3'),
       File('assets/Web Audio Files/Star Wars Style.mp3'),
     ];
+
+    ref.read(listFileEntityProvider.notifier).state = audioFiles;
+    return audioFiles;
   } else if (await Permission.storage.request().isGranted) {
     Directory directory = Directory.current;
     List<FileSystemEntity> files = [];
@@ -73,6 +81,8 @@ final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
             file.path.endsWith('.mp3') ||
             file.path.endsWith('.wav'))
         .toList();
+    ref.read(totalSongsProvider.notifier).state = audioFiles.length;
+    ref.read(listFileEntityProvider.notifier).state = audioFiles;
 
     return audioFiles;
   }
