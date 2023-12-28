@@ -4,6 +4,20 @@ import 'package:musicgnk/screen.dart';
 
 import 'main.dart';
 
+icon(
+  BuildContext context,
+  void Function() onPressed,
+  IconData icon,
+) =>
+    IconButton(
+      onPressed: onPressed,
+      icon: Icon(
+        icon,
+        color: Colors.white,
+        size: 28,
+      ),
+    );
+
 // ignore: must_be_immutable
 class ActionBar extends StatelessWidget {
   const ActionBar({super.key});
@@ -12,107 +26,53 @@ class ActionBar extends StatelessWidget {
   Widget build(BuildContext context) => Consumer(
         builder: (_, WidgetRef ref, __) {
           final myPlayer = ref.watch(playerProvider);
+          final nowPlaying = ref.watch(playingStateProvider);
           {
-            return Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        ref.read(darkStateProvider.notifier).state =
-                            !ref.watch(darkStateProvider);
-                      },
-                      icon: const Icon(
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: icon(
+                        context,
+                        () {},
                         Icons.skip_previous_rounded,
-                        color: Colors.white,
-                        size: 32,
-                      ),
-                      label: const Text(
-                        '',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                        ),
-                      ),
-                      //Changing the style, removing the color and shadow
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 1),
-                  Expanded(
-                    child: Consumer(
-                      builder: (_, WidgetRef ref, __) {
-                        final nowPlaying = ref.watch(playingStateProvider);
-                        return ElevatedButton.icon(
-                          onPressed: () {
-                            if (nowPlaying) {
-                              print("Set to pause");
-                              myPlayer.pause();
-                              ref.read(playingStateProvider.notifier).state =
-                                  false;
-                            } else {
-                              print("Set to play");
-                              myPlayer.resume();
-                              ref.read(playingStateProvider.notifier).state =
-                                  true;
-                            }
-                          },
-                          icon: Icon(
-                            nowPlaying
-                                ? Icons.pause_rounded
-                                : Icons.play_arrow_rounded,
-                            color: Colors.white,
-                            size: 32,
-                          ),
-                          label: const Text(
-                            '',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white,
-                            ),
-                          ),
-                          //Changing the style, removing the color and shadow
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            shadowColor: Colors.transparent,
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          ),
-                        );
-                      },
+                    const SizedBox(width: 1),
+                    Expanded(
+                      child: icon(
+                        context,
+                        () {
+                          if (nowPlaying) {
+                            print("Set to pause");
+                            myPlayer.pause();
+                            ref.read(playingStateProvider.notifier).state =
+                                false;
+                          } else {
+                            print("Set to play");
+                            myPlayer.resume();
+                            ref.read(playingStateProvider.notifier).state =
+                                true;
+                          }
+                        },
+                        nowPlaying
+                            ? Icons.pause_rounded
+                            : Icons.play_arrow_rounded,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 1),
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        myPlayer.dispose();
-                      },
-                      icon: const Icon(
+                    const SizedBox(width: 1),
+                    Expanded(
+                      child: icon(
+                        context,
+                        () {},
                         Icons.skip_next_rounded,
-                        color: Colors.white,
-                        size: 32,
-                      ),
-                      label: Text(
-                        '',
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Theme.of(context).colorScheme.background),
-                      ),
-                      //Changing the style, removing the color and shadow
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        elevation: 0,
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           }

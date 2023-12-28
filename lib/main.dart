@@ -46,33 +46,6 @@ final settingsState = StateProvider<bool>((ref) {
   return false;
 });
 
-final darkStateProvider = StateProvider<bool>((ref) {
-  final sharedPreferencesAsyncValue = ref.watch(prefs);
-  return sharedPreferencesAsyncValue.when(
-    data: (sharedPreferences) {
-      bool? darkEnabled = sharedPreferences.getBool('darkMode');
-      if (darkEnabled != null) {
-        return darkEnabled;
-      } else {
-        return false;
-      }
-    },
-    loading: () {
-      // Handle the case when SharedPreferences is still loading
-      return false;
-    },
-    error: (error, stackTrace) {
-      // Handle the error case
-      return false; // You can change this to an appropriate default value
-    },
-  );
-});
-
-final prefs = FutureProvider<SharedPreferences>((ref) async {
-  final sharedPreferences = await SharedPreferences.getInstance();
-  return sharedPreferences;
-});
-
 final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
   if (UniversalPlatform.isWeb) {
     return [
