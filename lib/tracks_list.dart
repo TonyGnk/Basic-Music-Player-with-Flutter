@@ -53,22 +53,16 @@ class TracksList extends StatelessWidget {
                               Text(
                                 removeExtension(
                                     audioFiles[index].uri.pathSegments.last),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
                                 ),
                               ),
-                              Text(
+                              const Text(
                                 "Unknown",
                                 style: TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.w500,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onPrimary
-                                      .withOpacity(0.7),
                                 ),
                               ),
                             ],

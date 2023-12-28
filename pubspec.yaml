@@ -39,3 +39,7 @@ flutter:
     uses-material-design: true
     assets:
         - assets/Web Audio Files/
+    fonts:
+        - family: Roboto
+          fonts:
+              - asset: assets/Fonts/Roboto-Regular.ttf
