@@ -81,6 +81,7 @@ class ActionBar extends StatelessWidget {
 void previousSong(WidgetRef ref) {
   final currentIndex = ref.read(playingIndex.notifier).state;
   final songs = ref.read(listFileEntityProvider.notifier).state;
+  ref.read(playingStateProvider.notifier).state = true;
 
   //Nothing happens, the same song is played again
   if (currentIndex == 0) {
@@ -99,6 +100,7 @@ void nextSong(WidgetRef ref) {
   final currentIndex = ref.read(playingIndex.notifier).state;
   final totalSongs = ref.read(totalSongsProvider.notifier).state;
   final songs = ref.read(listFileEntityProvider.notifier).state;
+  ref.read(playingStateProvider.notifier).state = true;
 
   //If the song is the last one, play the first one
   if (currentIndex == totalSongs - 1) {
