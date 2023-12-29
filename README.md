@@ -1,4 +1,4 @@
-# 🎵 Basic Flutter Music Player
+# 🎵 Flutter Audio Player
 
 ## 🌟 Introduction
 
@@ -6,18 +6,11 @@ A simple Flutter application to play music from the user's Windows Downloads fol
 
 ## ✨ Features
 
-- Scan and list music files from the Downloads folder.
-- Play music tracks.
-- Basic music controls (play, pause, next, previous)
+-   Scan and list music files from the Downloads folder.
+-   Play music tracks.
+-   Basic music controls (play, pause, next, previous)
 
-## 🚀 Getting Started
-
-Follow these steps to get started with the Project:
-
-1. Clone the repository: `git clone https://github.com/TonyGnk/MusicSwitchApp.git`
-2. Navigate to the app directory: `cd MusicSwitchApp`
-3. Install dependencies: `flutter pub get`
-4. Run the app: `flutter run`
+<iframe src="https://tonygnk.github.io/flutter-audio-player/" width="700" height="400"></iframe>
 
 ## 🤝 Contributing
 
