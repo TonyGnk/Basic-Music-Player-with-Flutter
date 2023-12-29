@@ -50,7 +50,7 @@ class TracksList extends StatelessWidget {
                                   fontFamily: "Roboto",
                                 ),
                               ),
-                              UniversalPlatform.isWeb
+                              !UniversalPlatform.isWeb
                                   ? textList(context)[index]
                                   : const Text(
                                       "Unknown",
@@ -274,7 +274,7 @@ linkText(
           fontSize: 12,
           fontWeight: FontWeight.w600,
           fontFamily: "Roboto",
-          color: Color.fromARGB(255, 58, 85, 145),
+          color: Color.fromARGB(255, 70, 102, 170),
         ),
       ),
     );

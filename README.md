@@ -10,8 +10,6 @@ A simple Flutter application to play music from the user's Windows Downloads fol
 -   Play music tracks.
 -   Basic music controls (play, pause, next, previous)
 
-<iframe src="https://tonygnk.github.io/flutter-audio-player/" width="700" height="400"></iframe>
-
 ## 🤝 Contributing
 
 Contributions to Project SwitchOS are welcome! If you'd like to contribute, please follow these guidelines:

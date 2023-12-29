@@ -14,7 +14,7 @@ void main() async {
     await windowManager.ensureInitialized();
     WindowOptions windowOptions = const WindowOptions(
       title: 'Flutter Audio Player',
-      size: Size(360, 700),
+      size: Size(380, 740),
       alwaysOnTop: true,
       backgroundColor: Colors.transparent,
       titleBarStyle: TitleBarStyle.normal,
@@ -70,7 +70,7 @@ final listFileEntityProvider = StateProvider<List<FileSystemEntity>>((ref) {
 });
 
 final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
-  if (UniversalPlatform.isWeb) {
+  if (UniversalPlatform.isWindows) {
     final audioFiles = [
       File('assets/assets/WebAudioFiles/Titanium.mp3'),
       File('assets/assets/WebAudioFiles/Glossy.mp3'),
