@@ -91,10 +91,10 @@ class _NewState extends ConsumerState<Screen> {
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: settingsOpened
                       ? const BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40),
+                          topLeft: Radius.circular(35),
+                          topRight: Radius.circular(35),
                         )
-                      : const BorderRadius.all(Radius.circular(40)),
+                      : const BorderRadius.all(Radius.circular(35)),
                 ),
                 child: const TopBar(),
               ),
@@ -107,8 +107,9 @@ class _NewState extends ConsumerState<Screen> {
             duration: const Duration(milliseconds: 300),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
-              borderRadius: const BorderRadius.all(Radius.circular(40)),
+              borderRadius: const BorderRadius.all(Radius.circular(35)),
             ),
+            clipBehavior: Clip.antiAlias,
             child: column2(),
           ),
         ],
@@ -133,16 +134,17 @@ class _NewState extends ConsumerState<Screen> {
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
           borderRadius: const BorderRadius.all(
-            Radius.circular(40),
+            Radius.circular(35),
           ),
         ),
+        clipBehavior: Clip.antiAlias,
         child: Column(
           children: [
             const TabPart(),
             Expanded(
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                //padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: const TracksList(),
               ),
             ),

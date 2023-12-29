@@ -77,7 +77,6 @@ class ActionBar extends StatelessWidget {
       );
 }
 
-//Function to go to the next song or previous song. Takes a widgetref reference and a bool to determine if it is the next song or previous song.
 void previousSong(WidgetRef ref) {
   final currentIndex = ref.read(playingIndex.notifier).state;
   final songs = ref.read(listFileEntityProvider.notifier).state;

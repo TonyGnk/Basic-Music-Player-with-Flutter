@@ -51,8 +51,8 @@ final listFileEntityProvider = StateProvider<List<FileSystemEntity>>((ref) {
     final list = [
       File('assets/Web Audio Files/Titanium.mp3'),
       File('assets/Web Audio Files/Glossy.mp3'),
-      File('assets/Web Audio Files/Lofi Chill.mp3'),
-      File('assets/Web Audio Files/Star Wars Style.mp3'),
+      File('assets/Web Audio Files/Chill.mp3'),
+      File('assets/Web Audio Files/Space.mp3'),
       File('assets/Web Audio Files/Awaken.mp3'),
     ];
     return list;
@@ -61,8 +61,8 @@ final listFileEntityProvider = StateProvider<List<FileSystemEntity>>((ref) {
     final list = [
       File('assets/assets/WebAudioFiles/Titanium.mp3'),
       File('assets/assets/WebAudioFiles/Glossy.mp3'),
-      File('assets/assets/WebAudioFiles/Lofi Chill.mp3'),
-      File('assets/assets/WebAudioFiles/Star Wars Style.mp3'),
+      File('assets/assets/WebAudioFiles/Chill.mp3'),
+      File('assets/assets/WebAudioFiles/Space.mp3'),
       File('assets/assets/WebAudioFiles/Awaken.mp3'),
     ];
     return list;
@@ -74,8 +74,8 @@ final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
     final audioFiles = [
       File('assets/assets/WebAudioFiles/Titanium.mp3'),
       File('assets/assets/WebAudioFiles/Glossy.mp3'),
-      File('assets/assets/WebAudioFiles/Lofi Chill.mp3'),
-      File('assets/assets/WebAudioFiles/Star Wars Style.mp3'),
+      File('assets/assets/WebAudioFiles/Chill.mp3'),
+      File('assets/assets/WebAudioFiles/Space.mp3'),
       File('assets/assets/WebAudioFiles/Awaken.mp3'),
     ];
 

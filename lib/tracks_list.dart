@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:musicgnk/screen.dart';
+import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'main.dart';
 
@@ -49,19 +50,20 @@ class TracksList extends StatelessWidget {
                                   fontFamily: "Roboto",
                                 ),
                               ),
-                              const Text(
-                                "Unknown",
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "Roboto",
-                                ),
-                              ),
+                              UniversalPlatform.isWeb
+                                  ? textList(context)[index]
+                                  : const Text(
+                                      "Unknown",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "Roboto",
+                                      ),
+                                    ),
                             ],
                           ),
                         ),
                       ),
-                      infoIcon(index, context),
                     ],
                   ),
                 );
@@ -83,32 +85,35 @@ class TracksList extends StatelessWidget {
           final myPlayer = ref.watch(playerProvider);
           final currentIndex = ref.watch(playingIndex);
 
-          return Column(
-            children: [
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: Material(
-                  clipBehavior: Clip.antiAlias,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(22),
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Column(
+              children: [
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: Material(
+                    clipBehavior: Clip.antiAlias,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(27),
+                      ),
+                    ),
+                    color: currentIndex == index
+                        ? Colors.grey.withOpacity(0.1)
+                        : Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        myPlayer.play(audioFiles[index].path);
+                        ref.read(playingIndex.notifier).state = index;
+                        ref.read(playingStateProvider.notifier).state = true;
+                      },
+                      child: child,
                     ),
                   ),
-                  color: currentIndex == index
-                      ? Colors.grey.withOpacity(0.1)
-                      : Colors.transparent,
-                  child: InkWell(
-                    onTap: () {
-                      myPlayer.play(audioFiles[index].path);
-                      ref.read(playingIndex.notifier).state = index;
-                      ref.read(playingStateProvider.notifier).state = true;
-                    },
-                    child: child,
-                  ),
                 ),
-              ),
-              const SizedBox(height: 6)
-            ],
+                const SizedBox(height: 6)
+              ],
+            ),
           );
         },
       );
@@ -121,7 +126,7 @@ class TracksList extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.onError,
+          color: const Color.fromARGB(255, 58, 85, 145).withOpacity(0.5),
           borderRadius: const BorderRadius.all(
             Radius.circular(18),
           ),
@@ -142,33 +147,6 @@ class TracksList extends StatelessWidget {
   }
 }
 
-infoIcon(int index, BuildContext context) => IconButton(
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text("CopyRight"),
-              content: textList(context)[index],
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: simpleText(context, 'Close'),
-                ),
-              ],
-            );
-          },
-        );
-      },
-      icon: const Icon(
-        Icons.info_outline_rounded,
-        color: Colors.white,
-        size: 28,
-      ),
-    );
-
 final playingIndex = StateProvider<int>((ref) => -1);
 final totalSongsProvider = StateProvider<int>((ref) => 5);
 
@@ -177,14 +155,13 @@ List<Row> textList(BuildContext context) => [
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          simpleText(context, "Music by "),
           linkText(
             context,
             "Alisia",
             Uri.parse(
                 "https://pixabay.com/users/alisiabeats-39461785/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=170190"),
           ),
-          simpleText(context, " from "),
+          simpleText(context, " | "),
           linkText(
             context,
             "Pixabay",
@@ -196,14 +173,13 @@ List<Row> textList(BuildContext context) => [
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          simpleText(context, "Music by "),
           linkText(
             context,
             "Yrii Semchyshyn",
             Uri.parse(
                 "https://pixabay.com/users/coma-media-24399569/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=168156"),
           ),
-          simpleText(context, " from "),
+          simpleText(context, " | "),
           linkText(
             context,
             "Pixabay",
@@ -215,7 +191,6 @@ List<Row> textList(BuildContext context) => [
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          simpleText(context, "Music by "),
           linkText(
             context,
             "Bohdan Kuzmin",
@@ -223,7 +198,7 @@ List<Row> textList(BuildContext context) => [
               "https://pixabay.com/users/bodleasons-28047609/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=159456",
             ),
           ),
-          simpleText(context, " from "),
+          simpleText(context, " | "),
           linkText(
             context,
             "Pixabay",
@@ -236,7 +211,6 @@ List<Row> textList(BuildContext context) => [
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          simpleText(context, "Music by "),
           linkText(
             context,
             "Luis Humanoide",
@@ -244,7 +218,7 @@ List<Row> textList(BuildContext context) => [
               "https://pixabay.com/users/humanoide_media-12661853/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=165111",
             ),
           ),
-          simpleText(context, " from "),
+          simpleText(context, " | "),
           linkText(
             context,
             "Pixabay",
@@ -257,7 +231,6 @@ List<Row> textList(BuildContext context) => [
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          simpleText(context, "Music by "),
           linkText(
             context,
             "Yevhen Onoychenko",
@@ -265,7 +238,7 @@ List<Row> textList(BuildContext context) => [
               "https://pixabay.com/users/onoychenkomusic-24430395/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=136824",
             ),
           ),
-          simpleText(context, " from "),
+          simpleText(context, " | "),
           linkText(
             context,
             "Pixabay",
@@ -298,10 +271,10 @@ linkText(
       child: Text(
         text,
         style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
           fontFamily: "Roboto",
-          color: Colors.blueAccent,
+          color: Color.fromARGB(255, 58, 85, 145),
         ),
       ),
     );
@@ -309,8 +282,8 @@ linkText(
 simpleText(BuildContext context, String text) => Text(
       text,
       style: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
         fontFamily: "Roboto",
         color: Theme.of(context).colorScheme.onPrimary,
       ),

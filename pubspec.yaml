@@ -42,8 +42,8 @@ flutter:
         - assets/WebAudioFiles/Glossy.mp3
         - assets/WebAudioFiles/Titanium.mp3
         - assets/WebAudioFiles/Awaken.mp3
-        - assets/WebAudioFiles/Lofi Chill.mp3
-        - assets/WebAudioFiles/Star Wars Style.mp3
+        - assets/WebAudioFiles/Chill.mp3
+        - assets/WebAudioFiles/Space.mp3
     fonts:
         - family: Roboto
           fonts:
