@@ -7,7 +7,7 @@ A simple Flutter application to play music from the user's Windows Downloads fol
 ## Screenshots
 
 <!-- assets/Screenshots/dark.png -->
-<img src="assets/Screenshots/dark.png" width="366" height="686" alt="App Ui in Dark Theme" />
+<img src="assets/Screenshots/dark.png" width="270" alt="App Ui in Dark Theme" />
 
 ## ✨ Features
 
