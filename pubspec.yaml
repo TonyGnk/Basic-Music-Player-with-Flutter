@@ -39,11 +39,11 @@ flutter:
     # the material Icons class.
     uses-material-design: true
     assets:
-        - assets/Web Audio Files/Glossy.mp3
-        - assets/Web Audio Files/Titanium.mp3
-        - assets/Web Audio Files/Awaken.mp3
-        - assets/Web Audio Files/Lofi Chill.mp3
-        - assets/Web Audio Files/Star Wars Style.mp3
+        - assets/WebAudioFiles/Glossy.mp3
+        - assets/WebAudioFiles/Titanium.mp3
+        - assets/WebAudioFiles/Awaken.mp3
+        - assets/WebAudioFiles/Lofi Chill.mp3
+        - assets/WebAudioFiles/Star Wars Style.mp3
     fonts:
         - family: Roboto
           fonts:
