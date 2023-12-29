@@ -33,7 +33,7 @@ jobs:
               run: flutter pub get
 
             - name: Build Windows Executable
-              run: flutter build windows
+              run: flutter build windows -release
 
             - name: Archive Release
               uses: thedoctor0/zip-release@0.7.5
@@ -41,6 +41,9 @@ jobs:
                   filename: "release.zip"
                   directory: "build/windows/x64/runner"
                   path: "Release"
+
+            - name: Build APK
+              run: flutter build apk -release
 
             - name: Show version
               run: |
@@ -60,4 +63,5 @@ jobs:
                   automatic_release_tag: ${{ steps.vars.outputs.version }}
                   prerelease: false
                   files: |
-                      build/windows/x64/runner/release.zip
+                      build\windows\x64\runner\release.zip
+                      build\app\outputs\flutter-apk\app-release.apk

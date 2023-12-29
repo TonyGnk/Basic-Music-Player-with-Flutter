@@ -50,7 +50,7 @@ class TracksList extends StatelessWidget {
                                   fontFamily: "Roboto",
                                 ),
                               ),
-                              !UniversalPlatform.isWeb
+                              UniversalPlatform.isWeb
                                   ? textList(context)[index]
                                   : const Text(
                                       "Unknown",

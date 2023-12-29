@@ -70,7 +70,7 @@ final listFileEntityProvider = StateProvider<List<FileSystemEntity>>((ref) {
 });
 
 final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
-  if (UniversalPlatform.isWindows) {
+  if (!UniversalPlatform.isWindows) {
     final audioFiles = [
       File('assets/assets/WebAudioFiles/Titanium.mp3'),
       File('assets/assets/WebAudioFiles/Glossy.mp3'),
