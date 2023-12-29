@@ -109,7 +109,7 @@ class _NewState extends ConsumerState<Screen> {
               color: Theme.of(context).colorScheme.surface,
               borderRadius: const BorderRadius.all(Radius.circular(35)),
             ),
-            clipBehavior: Clip.antiAlias,
+            //clipBehavior: Clip.antiAliasWithSaveLayer,
             child: column2(),
           ),
         ],
@@ -133,8 +133,11 @@ class _NewState extends ConsumerState<Screen> {
         duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(35),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(33),
+            topRight: Radius.circular(33),
+            bottomLeft: Radius.circular(35),
+            bottomRight: Radius.circular(35),
           ),
         ),
         clipBehavior: Clip.antiAlias,

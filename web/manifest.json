@@ -1,6 +1,6 @@
 {
-    "name": "music_switch_app",
-    "short_name": "music_switch_app",
+    "name": "Flutter Audio Player",
+    "short_name": "Flutter Audio Player",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#152C3E00",

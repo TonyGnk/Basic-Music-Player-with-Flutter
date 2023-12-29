@@ -11,7 +11,7 @@
 		"**/.flutter-plugins-dependencies": true,
 		"**/windows": true,
 		"**/macos": true,
-		"**/web": true,
+		// "**/web": true,
 		"**/.dart_tool": true,
 		"**/.github": false,
 		"**/linux": true,
