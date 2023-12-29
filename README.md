@@ -4,6 +4,11 @@
 
 A simple Flutter application to play music from the user's Windows Downloads folder and the Android's downloads and music directory
 
+## Screenshots
+
+<!-- assets/Screenshots/dark.png -->
+<img src="assets/Screenshots/dark.png" width="366" height="686" alt="App Ui in Dark Theme" />
+
 ## ✨ Features
 
 -   Scan and list music files from the Downloads folder.
