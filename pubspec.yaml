@@ -27,12 +27,32 @@ dependencies:
 dev_dependencies:
     flutter_test:
         sdk: flutter
+    flutter_launcher_icons: ^0.13.1
     flutter_lints: ^3.0.1
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
+flutter_launcher_icons: #Run "flutter pub run flutter_launcher_icons"
+    #  image_path: "assets/Logo/icon-128x128.png"
+    image_path_android: "assets/Logo/logoNoneTransparent.png"
+    image_path_ios: "assets/Logo/logoNoneTransparent.png"
+    android: true
+    ios: true
+    adaptive_icon_background: "assets/Logo/logoBackground.png" # only available for Android 8.0 devices and above
+    adaptive_icon_foreground: "assets/Logo/logo.png" # only available for Android 8.0 devices and above
+    remove_alpha_ios: true
+    background_color_ios: "#ffffff"
+    web:
+        generate: true
+        image_path: "assets/Logo/logo.png"
+        background_color: "#152C3E00"
+        theme_color: "#274B66"
+    windows:
+        generate: true
+        image_path: "assets/Logo/logo.png"
+        icon_size: 48 # min:48, max:256, default: 48
+    macos:
+        generate: true
+        image_path: "assets/Logo/logo.png"
 
-# The following section is specific to Flutter packages.
 flutter:
     # The following line ensures that the Material Icons font is
     # included with your application, so that you can use the icons in
@@ -44,6 +64,9 @@ flutter:
         - assets/WebAudioFiles/Awaken.mp3
         - assets/WebAudioFiles/Chill.mp3
         - assets/WebAudioFiles/Space.mp3
+        - assets/Logo/logo.png
+        - assets/Logo/logoBackground.png
+        - assets/Logo/logoNoneTransparent.png
     fonts:
         - family: Roboto
           fonts:

@@ -10,7 +10,7 @@ import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (!UniversalPlatform.isWeb) {
+  if (UniversalPlatform.isDesktop) {
     await windowManager.ensureInitialized();
     WindowOptions windowOptions = const WindowOptions(
       title: 'Flutter Audio Player',

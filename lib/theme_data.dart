@@ -26,7 +26,7 @@ class MaterialThemeData extends TotalTheme {
         colorScheme: const ColorScheme.light(
           primary: _lightPrimary,
           onPrimary: _lightOnPrimary,
-          secondary: Color.fromARGB(255, 58, 85, 145),
+          secondary: Color.fromRGBO(58, 85, 145, 1),
           onSecondary: Color.fromARGB(255, 255, 255, 255),
           background: _lightBackground,
           onBackground: _lightOnBackground,
