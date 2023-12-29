@@ -47,24 +47,36 @@ final settingsState = StateProvider<bool>((ref) {
 });
 
 final listFileEntityProvider = StateProvider<List<FileSystemEntity>>((ref) {
-  return [
-    File('assets/Web Audio Files/Titanium.mp3'),
-    File('assets/Web Audio Files/Glossy.mp3'),
-    File('assets/Web Audio Files/Lofi Chill.mp3'),
-    File('assets/Web Audio Files/Star Wars Style.mp3'),
-    File('assets/Web Audio Files/Awaken.mp3'),
-  ];
-});
-
-final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
-  if (UniversalPlatform.isWeb) {
-    //ref.read(totalSongsProvider.notifier).state = 4;
-    final audioFiles = [
+  if (!UniversalPlatform.isWeb) {
+    final list = [
       File('assets/Web Audio Files/Titanium.mp3'),
       File('assets/Web Audio Files/Glossy.mp3'),
       File('assets/Web Audio Files/Lofi Chill.mp3'),
       File('assets/Web Audio Files/Star Wars Style.mp3'),
       File('assets/Web Audio Files/Awaken.mp3'),
+    ];
+    return list;
+    //If universal platform is web, then import assets/assets/Web Audio Files with assets doubling. If not, then import assets/Web Audio Files without assets doubling.
+  } else {
+    final list = [
+      File('assets/assets/Web Audio Files/Titanium.mp3'),
+      File('assets/assets/Web Audio Files/Glossy.mp3'),
+      File('assets/assets/Web Audio Files/Lofi Chill.mp3'),
+      File('assets/assets/Web Audio Files/Star Wars Style.mp3'),
+      File('assets/assets/Web Audio Files/Awaken.mp3'),
+    ];
+    return list;
+  }
+});
+
+final audioFilesProvider = FutureProvider<List<FileSystemEntity>>((ref) async {
+  if (UniversalPlatform.isWeb) {
+    final audioFiles = [
+      File('assets/assets/Web Audio Files/Titanium.mp3'),
+      File('assets/assets/Web Audio Files/Glossy.mp3'),
+      File('assets/assets/Web Audio Files/Lofi Chill.mp3'),
+      File('assets/assets/Web Audio Files/Star Wars Style.mp3'),
+      File('assets/assets/Web Audio Files/Awaken.mp3'),
     ];
 
     //ref.read(listFileEntityProvider.notifier).state = audioFiles;

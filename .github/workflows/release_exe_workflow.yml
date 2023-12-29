@@ -1,8 +1,5 @@
 name: Release New Version
 on:
-    push:
-        branches:
-            - main
     workflow_dispatch:
 
 permissions:
