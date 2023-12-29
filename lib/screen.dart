@@ -104,6 +104,7 @@ class _NewState extends ConsumerState<Screen> {
           AnimatedContainer(
             height:
                 settingsOpened ? 0 : MediaQuery.of(context).size.height - 162,
+            width: MediaQuery.of(context).size.width,
             duration: const Duration(milliseconds: 300),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
@@ -121,6 +122,7 @@ class _NewState extends ConsumerState<Screen> {
             child: container(context),
           ),
           AnimatedContainer(
+            width: MediaQuery.of(context).size.width,
             duration: const Duration(milliseconds: 300),
             height: 50,
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
