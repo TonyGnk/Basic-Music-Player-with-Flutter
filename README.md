@@ -2,12 +2,14 @@
 
 ## 🌟 Introduction
 
-A simple Flutter application to play music from the user's Windows Downloads folder and the Android's downloads and music directory
+A simple Flutter application to play audio files from Music folder in Windows 🖥️ and Downloads folder in Android📱
 
-## Screenshots
+## Screenshot
 
-<!-- assets/Screenshots/dark.png -->
 <img src="assets/Screenshots/dark.png" width="270" alt="App Ui in Dark Theme" />
+
+[Try my app here](https://play.google.com/store/apps/details?id=com.example.myapp)
+<a href="https://play.google.com/store/apps/details?id=com.example.myapp" target="_blank">Try my app here</a>
 
 ## ✨ Features
 
