@@ -8,7 +8,7 @@ A simple Flutter application to play audio files from Music folder in Windows ðŸ
 
 ## Screenshot
 
-[<img src="assets/Screenshots/dark.png" width="270" alt="App UI in Dark Theme" />](https://tonygnk.github.io/flutter-audio-player/)
+[<img src="assets/Screenshots/light.png" width="270" alt="App UI in Dark Theme" />](https://tonygnk.github.io/flutter-audio-player/)
 
 ### [See Web Showcase ðŸŽ‰](https://tonygnk.github.io/flutter-audio-player/)
 
